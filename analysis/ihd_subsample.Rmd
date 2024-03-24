@@ -1,0 +1,81 @@
+---
+title: "ihd_subsample"
+output: html_document
+date: '2024-03-24'
+---
+
+## Description:
+
+CoxPH-SuSIE result for Ischaemic Heart disease using subset of UKB data. n.case and n.control = 10000.
+
+```{r}
+library(survival)
+library(susieR)
+devtools::load_all("/project2/mstephens/yunqiyang/surv-susie/logisticsusie")
+```
+
+```{r}
+res6 = readRDS("./data/ihd_subsample/fit.susie.chr6.rds")
+res9 = readRDS("./data/ihd_subsample/fit.susie.chr9.rds")
+snp_list = read.csv("./data/ihd_subsample/ihd_chr6.csv")
+```
+
+### 1. Regions on CHR6
+```{r}
+fit = res6[[1]]
+X = res6[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+```
+
+```{r}
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+iter = fit$iter
+iter
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+snp_names1 = unlist(lapply(snps1, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names1, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)")
+
+snps2 = colnames(X)[cs$cs$L2]
+snp_names2 = unlist(lapply(snps2, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names2, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)")
+```
+
+```{r}
+snps_all = c(snps1, snps2)
+snp_summary = cbind(snp_list[snp_list$Variant %in% c(snp_names1, snp_names2), ], pip[c(cs$cs$L1, cs$cs$L2)])
+snp_summary
+```
+
+
+### 2. Regions on CHR9
+```{r}
+fit = res9[[1]]
+X = res9[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+```
+
+```{r}
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+iter = fit$iter
+iter
+```
+
+

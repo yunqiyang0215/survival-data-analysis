@@ -53,9 +53,12 @@ plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-valu
 ```
 
 ```{r}
-snps_all = c(snps1, snps2)
-snp_summary = cbind(snp_list[snp_list$Variant %in% c(snp_names1, snp_names2), ], pip[c(cs$cs$L1, cs$cs$L2)])
-snp_summary
+
+cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])
+```
+
+```{r}
+cbind(snp_list[snp_list$Variant %in% snp_names2, ], pip[sort(cs$cs$L2)])
 ```
 
 

@@ -12,7 +12,7 @@
 
 <meta name="date" content="2024-03-24" />
 
-<title>ihd_subsample</title>
+<title>ihd subsample result</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -361,7 +361,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">ihd_subsample</h1>
+<h1 class="title toc-ignore">ihd subsample result</h1>
 <h4 class="date">2024-03-24</h4>
 
 </div>
@@ -523,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree0e6158d8d354da6ae2110d8810c58b41200e02catargetblank0e6158da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8targetblank068b07ea">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/0e6158d8d354da6ae2110d8810c58b41200e02ca" target="_blank">0e6158d</a>
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8" target="_blank">068b07e</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree0e6158d8d354da6ae2110d8810c58b41200e02catargetblank0e6158da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8targetblank068b07ea"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/0e6158d8d354da6ae2110d8810c58b41200e02ca" target="_blank">0e6158d</a>.
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8" target="_blank">068b07e</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/blob/068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8/analysis/ihd_subsample.Rmd" target="_blank">068b07e</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-03-24
+</td>
+<td>
+wflow_publish("analysis/ihd_subsample.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/coxPHSuSIE-data-application/4127d18fa86f156df0f2d019253c40fbf456cbdb/docs/ihd_subsample.html" target="_blank">4127d18</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-03-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -686,6 +720,43 @@ snp_names2 = unlist(lapply(snps2, function(x) unlist(strsplit(x, &quot;_&quot;))
 colors &lt;- ifelse(snp_list$Variant %in% snp_names2, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(snp_list$p.value), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;)</code></pre>
 <p><img src="figure/ihd_subsample.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/blob/4127d18fa86f156df0f2d019253c40fbf456cbdb/docs/figure/ihd_subsample.Rmd/unnamed-chunk-5-1.png" target="_blank">4127d18</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-03-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>snps_all = c(snps1, snps2)
 snp_summary = cbind(snp_list[snp_list$Variant %in% c(snp_names1, snp_names2), ], pip[c(cs$cs$L1, cs$cs$L2)])
 snp_summary</code></pre>

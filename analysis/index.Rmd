@@ -8,5 +8,5 @@ editor_options:
   chunk_output_type: console
 ---
 
-+[ihd subsample result](ihd_subsample.html)
++ [ihd subsample result](ihd_subsample.html)
 

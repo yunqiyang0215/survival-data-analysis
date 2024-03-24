@@ -8,6 +8,8 @@ date: '2024-03-24'
 
 CoxPH-SuSIE result for Ischaemic Heart disease using subset of UKB data. n.case and n.control = 10000.
 
+On CHR6, the SNPs that are in the first CS correspond to LPA locus. 
+
 ```{r}
 library(survival)
 library(susieR)

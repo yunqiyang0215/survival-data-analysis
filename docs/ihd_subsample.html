@@ -523,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8targetblank068b07ea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtreebc82930a6b91709fdd14fa1dd5a517f6c1e19f89targetblankbc82930a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8" target="_blank">068b07e</a>
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/bc82930a6b91709fdd14fa1dd5a517f6c1e19f89" target="_blank">bc82930</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtree068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8targetblank068b07ea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215coxPHSuSIEdataapplicationtreebc82930a6b91709fdd14fa1dd5a517f6c1e19f89targetblankbc82930a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -541,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/068b07e7b89bbe3c2918f504cc8ce3fb3407aeb8" target="_blank">068b07e</a>.
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/tree/bc82930a6b91709fdd14fa1dd5a517f6c1e19f89" target="_blank">bc82930</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -602,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application/blob/bc82930a6b91709fdd14fa1dd5a517f6c1e19f89/analysis/ihd_subsample.Rmd" target="_blank">bc82930</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-03-24
+</td>
+<td>
+wflow_publish("analysis/ihd_subsample.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/coxPHSuSIE-data-application/b140036d72b05f9a153460826a7fd5cadf1ec2d3/docs/ihd_subsample.html" target="_blank">b140036</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-03-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -757,9 +791,23 @@ yunqi yang
 </table>
 </div>
 </div>
-<pre class="r"><code>snps_all = c(snps1, snps2)
-snp_summary = cbind(snp_list[snp_list$Variant %in% c(snp_names1, snp_names2), ], pip[c(cs$cs$L1, cs$cs$L2)])
-snp_summary</code></pre>
+<pre class="r"><code>cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>         Variant  Position Eff..Allele                            Trait
+3756 rs118039278 160985526           A I20-I25 Ischaemic heart diseases
+3793  rs74617384 160997118           A I20-I25 Ischaemic heart diseases
+3813  rs55730499 161005610           T I20-I25 Ischaemic heart diseases
+3832  rs10455872 161010118           A I20-I25 Ischaemic heart diseases
+          Beta    p.value       MAF    HWE imp..score ORbeta.
+3756  0.018096 1.1460e-79 0.0796169 1.0000   0.991241   1.300
+3793 -0.017984 2.0848e-77 0.0781900 0.4465  genotyped   0.769
+3813  0.018098 7.1470e-81 0.0804036 0.7931   0.997046   1.300
+3832 -0.018141 1.0933e-80 0.0796800 0.8544  genotyped   0.767
+     pip[sort(cs$cs$L1)]
+3756           0.1921269
+3793           0.3071470
+3813           0.2293490
+3832           0.2743340</code></pre>
+<pre class="r"><code>cbind(snp_list[snp_list$Variant %in% snp_names2, ], pip[sort(cs$cs$L2)])</code></pre>
 <pre><code>         Variant  Position Eff..Allele                            Trait
 2609  rs10080815 160687412           T I20-I25 Ischaemic heart diseases
 3052   rs9295127 160751123           A I20-I25 Ischaemic heart diseases
@@ -772,10 +820,6 @@ snp_summary</code></pre>
 3609 rs117733303 160922870           A I20-I25 Ischaemic heart diseases
 3649   rs7452960 160941641           A I20-I25 Ischaemic heart diseases
 3697   rs3798220 160961137           T I20-I25 Ischaemic heart diseases
-3756 rs118039278 160985526           A I20-I25 Ischaemic heart diseases
-3793  rs74617384 160997118           A I20-I25 Ischaemic heart diseases
-3813  rs55730499 161005610           T I20-I25 Ischaemic heart diseases
-3832  rs10455872 161010118           A I20-I25 Ischaemic heart diseases
 3846 rs140570886 161013013           C I20-I25 Ischaemic heart diseases
           Beta    p.value       MAF     HWE imp..score ORbeta.
 2609 -0.023536 6.5029e-37 0.0197700 0.29280  genotyped   0.709
@@ -789,28 +833,20 @@ snp_summary</code></pre>
 3609 -0.027258 5.9794e-46 0.0185000 0.32660  genotyped   0.671
 3649  0.027336 1.0542e-45 0.0182788 0.53910   0.998494   1.490
 3697 -0.027400 6.4488e-46 0.0182900 0.39550  genotyped   0.670
-3756  0.018096 1.1460e-79 0.0796169 1.00000   0.991241   1.300
-3793 -0.017984 2.0848e-77 0.0781900 0.44650  genotyped   0.769
-3813  0.018098 7.1470e-81 0.0804036 0.79310   0.997046   1.300
-3832 -0.018141 1.0933e-80 0.0796800 0.85440  genotyped   0.767
 3846  0.031895 4.3790e-51 0.0155470 0.14530    0.96051   1.590
-     pip[c(cs$cs$L1, cs$cs$L2)]
-2609                 0.19212692
-3052                 0.30714700
-3282                 0.22934896
-3372                 0.27433395
-3388                 0.02493094
-3517                 0.02663487
-3558                 0.02984840
-3584                 0.20014679
-3609                 0.22311034
-3649                 0.11486359
-3697                 0.04188253
-3756                 0.09563394
-3793                 0.05584116
-3813                 0.05729752
-3832                 0.06034514
-3846                 0.05371242</code></pre>
+     pip[sort(cs$cs$L2)]
+2609          0.02493094
+3052          0.02663487
+3282          0.02984840
+3372          0.20014679
+3388          0.22311034
+3517          0.11486359
+3558          0.04188253
+3584          0.09563394
+3609          0.05584116
+3649          0.05729752
+3697          0.06034514
+3846          0.05371242</code></pre>
 </div>
 <div id="regions-on-chr9" class="section level3">
 <h3>2. Regions on CHR9</h3>

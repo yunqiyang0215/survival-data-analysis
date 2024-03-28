@@ -10,3 +10,4 @@ editor_options:
 
 + [ihd subsample result](ihd_subsample.html)
 
++ [ukb asthma result](ukb_asthma.html)

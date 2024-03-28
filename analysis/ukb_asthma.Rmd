@@ -1,0 +1,155 @@
+---
+title: "Ukb asthma result"
+author: "Yunqi Yang"
+date: "3/28/2024"
+output: html_document
+---
+
+Description:
+CoxPH-SuSIE result for Asthma using all the cases from UKB. Number of controls is twice as number of cases. In total, 80694 individuals used in fitting. 
+
+
+```{r}
+library(survival)
+library(susieR)
+devtools::load_all("/Users/nicholeyang/Downloads/logisticsusie")
+```
+
+### 1. Chr2
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma/fit.susie.chr2.rds")
+snp_list = read.csv("/Users/nicholeyang/Downloads/survivalsusie/data/ukb_trait_gwas/asthma/chr2.csv")
+
+fit = res[[1]]
+X = res[[2]]
+```
+
+```{r}
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+snp_names1 = unlist(lapply(snps1, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names1, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+
+snps2 = colnames(X)[cs$cs$L2]
+snp_names2 = unlist(lapply(snps2, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names2, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+```
+```{r}
+cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])
+cbind(snp_list[snp_list$Variant %in% snp_names2, ], pip[sort(cs$cs$L2)])
+```
+
+### 2. Chr9
+
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma/fit.susie.chr9.rds")
+snp_list = read.csv("/Users/nicholeyang/Downloads/survivalsusie/data/ukb_trait_gwas/asthma/chr9.csv")
+
+fit = res[[1]]
+X = res[[2]]
+```
+
+```{r}
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+snps1 = colnames(X)[cs$cs$L1]
+snp_names1 = unlist(lapply(snps1, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names1, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+```
+```{r}
+cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])
+```
+
+
+### 3. Chr10
+
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma/fit.susie.chr10.rds")
+snp_list = read.csv("/Users/nicholeyang/Downloads/survivalsusie/data/ukb_trait_gwas/asthma/chr10.csv")
+
+fit = res[[1]]
+X = res[[2]]
+```
+
+```{r}
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+snp_names1 = unlist(lapply(snps1, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names1, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+
+snps2 = colnames(X)[cs$cs$L2]
+snp_names2 = unlist(lapply(snps2, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names2, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+```
+```{r}
+cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])
+cbind(snp_list[snp_list$Variant %in% snp_names2, ], pip[sort(cs$cs$L2)])
+```
+
+### 4. Chr11
+
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma/fit.susie.chr11.rds")
+snp_list = read.csv("/Users/nicholeyang/Downloads/survivalsusie/data/ukb_trait_gwas/asthma/chr11.csv")
+
+fit = res[[1]]
+X = res[[2]]
+```
+
+```{r}
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+snps1 = colnames(X)[cs$cs$L1]
+snp_names1 = unlist(lapply(snps1, function(x) unlist(strsplit(x, "_"))[1]))
+colors <- ifelse(snp_list$Variant %in% snp_names1, "red", "black")
+plot(-log10(snp_list$p.value), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8)
+```
+```{r}
+cbind(snp_list[snp_list$Variant %in% snp_names1, ], pip[sort(cs$cs$L1)])
+cbind(snp_list[snp_list$Variant %in% snp_names2, ], pip[sort(cs$cs$L2)])
+```

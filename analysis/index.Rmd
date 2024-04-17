@@ -13,3 +13,5 @@ editor_options:
 + [gwas ihd](gwas_ihd.html)
 
 + [ukb asthma result](ukb_asthma.html)
+
++ [ukb self-report asthma result](asthma_self_report.html)

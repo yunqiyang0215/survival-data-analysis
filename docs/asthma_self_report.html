@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Yunqi Yang" />
+
+
+<title>self-report-asthma</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">coxPHSuSIE-data-application</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">self-report-asthma</h1>
+<h4 class="author">Yunqi Yang</h4>
+<h4 class="date">4/16/2024</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-04-16
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>survival-data-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240324code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20240324)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240324code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240324)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreedf62df5a017df7323231f3cb13f7e7360fd74182targetblankdf62df5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/df62df5a017df7323231f3cb13f7e7360fd74182" target="_blank">df62df5</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreedf62df5a017df7323231f3cb13f7e7360fd74182targetblankdf62df5a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/df62df5a017df7323231f3cb13f7e7360fd74182" target="_blank">df62df5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/asthma_self_report.Rmd</code>) and HTML (<code>docs/asthma_self_report.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/df62df5a017df7323231f3cb13f7e7360fd74182/analysis/asthma_self_report.Rmd" target="_blank">df62df5</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-04-16
+</td>
+<td>
+wflow_publish("analysis/asthma_self_report.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(survival)
+library(susieR)
+devtools::load_all(&quot;/Users/nicholeyang/Downloads/logisticsusie&quot;)</code></pre>
+<pre><code>ℹ Loading logisticsusie</code></pre>
+<div id="region-1" class="section level3">
+<h3>Region 1</h3>
+<pre class="r"><code>res = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr11_61000000_63000000.rds&quot;)
+gwas = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_61000000_63000000.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.048345837 0.018942668 0.017804861 0.017581518 0.016594471 0.009652823
+ [7] 0.008519408 0.008456946 0.008387958 0.008320214</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+NULL
+
+$coverage
+NULL
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>plot(-log10(gwas[, &quot;p.value.spa&quot;]), xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, 
+     ylim = c(0, 8), cex = 0.8)</code></pre>
+<p><img src="figure/asthma_self_report.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="region-2" class="section level3">
+<h3>Region 2</h3>
+<pre class="r"><code>res = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr11_1113000_1750000.rds&quot;)
+gwas = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_1113000_1750000.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.020313888 0.020143342 0.019259236 0.016483365 0.012727759 0.011996254
+ [7] 0.009421512 0.009018887 0.009014567 0.008883730</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+NULL
+
+$coverage
+NULL
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>plot(-log10(gwas[, &quot;p.value.spa&quot;]), xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, 
+     ylim = c(0, 8), cex = 0.8)</code></pre>
+<p><img src="figure/asthma_self_report.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="region-3" class="section level3">
+<h3>Region 3</h3>
+<pre class="r"><code>res = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr11_75000000_77000000.rds&quot;)
+gwas = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_75000000_77000000.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.83918080 0.26044924 0.24549898 0.21465913 0.18439119 0.15293021
+ [7] 0.03706393 0.01280900 0.01168736 0.01047847</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 3196 3199 3200 3203 3225 3245
+
+$cs$L2
+[1] 3064 3235
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.9423496     0.9786286       0.9854458
+L2    0.9414139     0.9414139       0.9414139
+
+$cs_index
+[1] 1 2
+
+$coverage
+[1] 0.9500171 0.9908003
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>par(mfrow = c(1,3))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20)
+
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, ylim = c(34, 40))
+
+
+
+snps2 = colnames(X)[cs$cs$L2]
+colors &lt;- ifelse(rownames(gwas) %in% snps2, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20)</code></pre>
+<p><img src="figure/asthma_self_report.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
+rs7936070_T  0.4766971            0 1.503789e-37 1.452115e-37  1612.065
+rs7936312_T  0.4766166            0 1.251399e-37 1.208159e-37  1613.890
+rs7936323_A  0.4765950            0 1.070192e-37 1.033056e-37  1615.204
+rs7936434_C  0.4768852            0 2.342714e-37 2.263324e-37  1607.740
+rs10160518_G 0.4973644            0 1.555762e-35 1.515029e-35 -1567.527
+rs7931483_A  0.4765866            0 2.109275e-36 2.041818e-36  1579.912
+                  Var         z           
+rs7936070_T  15838.20  12.80942 0.21465913
+rs7936312_T  15838.79  12.82369 0.24549898
+rs7936323_A  15834.63  12.83582 0.26044924
+rs7936434_C  15838.51  12.77494 0.18439119
+rs10160518_G 15868.56 -12.44361 0.01280900
+rs7931483_A  15716.01  12.60264 0.03706393</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])</code></pre>
+<pre><code>                    MAF missing.rate  p.value.spa p.value.norm     Stat
+rs61894547_T 0.05155540            0 3.916273e-24 8.543620e-25 570.9379
+rs55646091_A 0.05086819            0 5.110427e-25 9.672793e-26 572.9645
+                  Var        z          
+rs61894547_T 3083.681 10.28145 0.8391808
+rs55646091_A 2983.742 10.48931 0.1529302</code></pre>
+</div>
+<div id="region-4" class="section level3">
+<h3>Region 4</h3>
+<pre class="r"><code>res = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr17_37500000_39000000.rds&quot;)
+gwas = readRDS(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr17_37500000_39000000.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.15054878 0.14440487 0.12546579 0.10494243 0.09420209 0.09279236
+ [7] 0.08840848 0.08325030 0.08116618 0.02647503</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 1215 1218 1219 1226 1227 1232 1239 1241 1249
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.9946412     0.9984299       0.9992943
+
+$cs_index
+[1] 1
+
+$coverage
+[1] 0.9515849
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>#par(mfrow = c(1,))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20)</code></pre>
+<p><img src="figure/asthma_self_report.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
+rs11651596_C 0.4711579            0 9.947331e-36 9.618739e-36 -1570.315
+rs12949100_A 0.4709323            0 7.665040e-36 7.409160e-36 -1572.964
+rs8069176_A  0.4712393            0 1.199672e-35 1.160289e-35 -1568.498
+rs4795399_C  0.4712166            0 8.096519e-36 7.827701e-36 -1573.030
+rs2305480_A  0.4712096            0 9.136234e-36 8.833860e-36 -1571.808
+rs11078926_A 0.4711895            0 9.466887e-36 9.153782e-36 -1571.440
+rs11078927_T 0.4710100            0 1.059990e-35 1.024952e-35 -1570.176
+rs12939832_A 0.4710054            0 8.304129e-36 8.027765e-36 -1572.232
+rs4795400_T  0.4712255            0 7.079374e-36 6.843430e-36 -1573.472
+                  Var         z           
+rs11651596_C 15832.73 -12.47983 0.15054878
+rs12949100_A 15833.46 -12.50060 0.14440487
+rs8069176_A  15834.00 -12.46489 0.09279236
+rs4795399_C  15845.87 -12.49623 0.12546579
+rs2305480_A  15845.64 -12.48661 0.10494243
+rs11078926_A 15845.40 -12.48378 0.09420209
+rs11078927_T 15842.77 -12.47478 0.08325030
+rs12939832_A 15834.88 -12.49422 0.08840848
+rs4795400_T  15827.70 -12.50691 0.08116618</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.1.1 (2021-08-10)
+Platform: x86_64-apple-darwin20.6.0 (64-bit)
+Running under: macOS Monterey 12.0.1
+
+Matrix products: default
+BLAS:   /usr/local/Cellar/openblas/0.3.18/lib/libopenblasp-r0.3.18.dylib
+LAPACK: /usr/local/Cellar/r/4.1.1_1/lib/R/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] logisticsusie_0.0.0.9004 testthat_3.1.0           susieR_0.12.35          
+[4] survival_3.2-11          workflowr_1.6.2         
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8.3       lattice_0.20-44    prettyunits_1.1.1  ps_1.6.0          
+ [5] rprojroot_2.0.2    digest_0.6.28      utf8_1.2.2         R6_2.5.1          
+ [9] plyr_1.8.6         RcppZiggurat_0.1.6 evaluate_0.14      highr_0.9         
+[13] ggplot2_3.4.3      pillar_1.9.0       rlang_1.1.1        rstudioapi_0.13   
+[17] irlba_2.3.5        whisker_0.4        callr_3.7.3        jquerylib_0.1.4   
+[21] Matrix_1.5-3       rmarkdown_2.11     desc_1.4.0         devtools_2.4.2    
+[25] splines_4.1.1      stringr_1.4.0      munsell_0.5.0      mixsqp_0.3-43     
+[29] compiler_4.1.1     httpuv_1.6.3       xfun_0.27          pkgconfig_2.0.3   
+[33] pkgbuild_1.2.0     htmltools_0.5.5    tidyselect_1.2.0   tibble_3.1.5      
+[37] matrixStats_0.63.0 reshape_0.8.9      fansi_0.5.0        crayon_1.4.1      
+[41] dplyr_1.0.7        withr_2.5.0        later_1.3.0        grid_4.1.1        
+[45] jsonlite_1.7.2     gtable_0.3.0       lifecycle_1.0.3    git2r_0.28.0      
+[49] magrittr_2.0.1     scales_1.2.1       Rfast_2.0.6        cli_3.6.1         
+[53] stringi_1.7.5      cachem_1.0.6       fs_1.5.0           promises_1.2.0.1  
+[57] remotes_2.4.2      bslib_0.4.1        ellipsis_0.3.2     generics_0.1.2    
+[61] vctrs_0.6.3        tools_4.1.1        glue_1.4.2         purrr_0.3.4       
+[65] parallel_4.1.1     processx_3.8.1     pkgload_1.2.3      fastmap_1.1.0     
+[69] yaml_2.2.1         colorspace_2.0-2   sessioninfo_1.1.1  memoise_2.0.1     
+[73] knitr_1.36         usethis_2.1.3      sass_0.4.4        </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

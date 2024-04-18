@@ -102,6 +102,8 @@ plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
 ```
+SNP rs61894547 is on the intron of gene EMSY, a known gene associated with risk of asthma.
+
 
 ### Region 4
 ```{r}

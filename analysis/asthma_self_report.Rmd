@@ -66,7 +66,8 @@ plot(-log10(gwas[, "p.value.spa"]), xlab = "SNP", ylab = "-log10(p-value)",
 ### Region 3
 ```{r}
 res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr11_75000000_77000000.rds")
-gwas = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_75000000_77000000.rds")
+gwas = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_75000000_77000000.rds") 
+gwas.cond = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/chr11_75000000_77000000.conditional.rds")
 ```
 
 ```{r}
@@ -84,22 +85,26 @@ cs
 ```
 
 ```{r}
-par(mfrow = c(1,3))
+par(mfrow = c(2,2))
 snps1 = colnames(X)[cs$cs$L1]
 colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
 plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20)
 
-plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, ylim = c(34, 40))
-
-
-
 snps2 = colnames(X)[cs$cs$L2]
 colors <- ifelse(rownames(gwas) %in% snps2, "red", "black")
 plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20)
+
+
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.6, pch = 20, ylim = c(34, 38))
+
+plot(-log10(gwas.cond[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(conditional p-value)", cex = 0.6, pch = 20, ylim = c(23, 26))
 ```
 
 ```{r}
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+cbind(gwas.cond[rownames(gwas.cond) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
 ```
 SNP rs61894547 is on the intron of gene EMSY, a known gene associated with risk of asthma.

@@ -84,7 +84,7 @@ cs <- susie_get_cs(fit, X)
 cs
 ```
 
-```{r}
+```{r fig.height = 8, fig.width=6}
 par(mfrow = c(2,2))
 snps1 = colnames(X)[cs$cs$L1]
 colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")

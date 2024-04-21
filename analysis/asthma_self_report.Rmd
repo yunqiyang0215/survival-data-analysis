@@ -88,18 +88,18 @@ cs
 par(mfrow = c(2,2))
 snps1 = colnames(X)[cs$cs$L1]
 colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
-plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20)
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
 
 snps2 = colnames(X)[cs$cs$L2]
 colors <- ifelse(rownames(gwas) %in% snps2, "red", "black")
-plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20)
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
 
 
 snps1 = colnames(X)[cs$cs$L1]
 colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
-plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.6, pch = 20, ylim = c(34, 38))
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.6, pch = 20, ylim = c(34, 38), main = "Zoom in CS 1")
 
-plot(-log10(gwas.cond[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(conditional p-value)", cex = 0.6, pch = 20, ylim = c(23, 26))
+plot(-log10(gwas.cond[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(conditional p-value)", cex = 0.6, pch = 20, ylim = c(23, 26), main = "Conditional association of CS 1")
 ```
 
 ```{r}

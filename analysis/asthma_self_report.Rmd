@@ -105,8 +105,11 @@ plot(-log10(gwas.cond[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-lo
 ```{r}
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas.cond[rownames(gwas.cond) %in% snps1, ], pip[sort(cs$cs$L1)])
+gwas.cond[-log10(gwas.cond[, "p.value.spa"]) > 24, ]
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
 ```
+**Comment**: those not in the CS either have larger pvalue or lower MAF. For example MAF around 0.45 vs. 0.47.
+
 SNP rs61894547 is on the intron of gene EMSY, a known gene associated with risk of asthma.
 
 

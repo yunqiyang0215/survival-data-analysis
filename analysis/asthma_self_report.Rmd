@@ -1,5 +1,5 @@
 ---
-title: "self-report-asthma"
+title: "self-report asthma"
 author: "Yunqi Yang"
 date: "4/16/2024"
 output: html_document

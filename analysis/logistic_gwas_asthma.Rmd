@@ -36,7 +36,7 @@ par(mfrow = c(6,2))
 for (i in 1:length(file.aoa)){
   region.aoa = file.aoa[i]
   region.coa = file.coa[i]
-  region_name = strsplit(region, "/")[[1]][9]
+  region_name = strsplit(region.aoa, "/")[[1]][9]
   gwas.aoa = read.csv(region.aoa, header = TRUE, sep = "\t")
   gwas.coa = read.csv(region.coa, header = TRUE, sep = "\t")
   ymin = min(log10(gwas.aoa$P)) - 1

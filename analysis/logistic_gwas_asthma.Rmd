@@ -34,10 +34,11 @@ for (i in 1:length(file)){
 
 par(mfrow = c(6,2))
 for (i in 1:length(file.aoa)){
-  region = file.aoa[i]
+  region.aoa = file.aoa[i]
+  region.coa = file.coa[i]
   region_name = strsplit(region, "/")[[1]][9]
-  gwas.aoa = read.csv(region, header = TRUE, sep = "\t")
-  gwas.coa = read.csv(region, header = TRUE, sep = "\t")
+  gwas.aoa = read.csv(region.aoa, header = TRUE, sep = "\t")
+  gwas.coa = read.csv(region.coa, header = TRUE, sep = "\t")
   ymin = min(log10(gwas.aoa$P)) - 1
   ymax = max(-log10(gwas.coa$P)) + 2
   plot(gwas.aoa$POS, log10(gwas.aoa$P), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = "#2c7fb8", main = region_name, ylab = "log10-pval", xlab = "Position")

@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree2c785c777b1f59389775331ef323bcc0495cdb8atargetblank2c785c7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/2c785c777b1f59389775331ef323bcc0495cdb8a" target="_blank">2c785c7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreef9fc5d95271e85f23fead53434da178a8e7b2a2ctargetblankf9fc5d9a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/f9fc5d95271e85f23fead53434da178a8e7b2a2c" target="_blank">f9fc5d9</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree2c785c777b1f59389775331ef323bcc0495cdb8atargetblank2c785c7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreef9fc5d95271e85f23fead53434da178a8e7b2a2ctargetblankf9fc5d9a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/2c785c777b1f59389775331ef323bcc0495cdb8a" target="_blank">2c785c7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/f9fc5d95271e85f23fead53434da178a8e7b2a2c" target="_blank">f9fc5d9</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -532,6 +532,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/f9fc5d95271e85f23fead53434da178a8e7b2a2c/analysis/logistic_gwas_asthma.Rmd" target="_blank">f9fc5d9</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-13
+</td>
+<td>
+wflow_publish("analysis/logistic_gwas_asthma.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/df86570670756614c9e43e068354217a758e184a/docs/logistic_gwas_asthma.html" target="_blank">df86570</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -646,7 +680,7 @@ yunqiyang0215
 for (i in 1:length(file.aoa)){
   region.aoa = file.aoa[i]
   region.coa = file.coa[i]
-  region_name = strsplit(region, &quot;/&quot;)[[1]][9]
+  region_name = strsplit(region.aoa, &quot;/&quot;)[[1]][9]
   gwas.aoa = read.csv(region.aoa, header = TRUE, sep = &quot;\t&quot;)
   gwas.coa = read.csv(region.coa, header = TRUE, sep = &quot;\t&quot;)
   ymin = min(log10(gwas.aoa$P)) - 1
@@ -678,6 +712,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/df86570670756614c9e43e068354217a758e184a/docs/figure/logistic_gwas_asthma.Rmd/unnamed-chunk-3-1.png" target="_blank">df86570</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/516a9433443f0fcdf0df469ebda5c39742394eb7/docs/figure/logistic_gwas_asthma.Rmd/unnamed-chunk-3-1.png" target="_blank">516a943</a>

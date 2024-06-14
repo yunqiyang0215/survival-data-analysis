@@ -14,4 +14,8 @@ editor_options:
 
 + [ukb asthma result](ukb_asthma.html)
 
+UKB self-report asthma:
+
++[logistic gwas](logistic_gwas_asthma.html)
+
 + [ukb self-report asthma result](asthma_self_report.html)

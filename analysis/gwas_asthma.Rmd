@@ -71,9 +71,9 @@ file <- list.files(path = path_to_files, pattern = "^all.*\\.rds$", full.names =
 
 ```
 
-```{r fig.width=10, fig.height=20}
+```{r fig.width=10, fig.height=18}
 
-par(mfrow = c(6,2))
+par(mfrow = c(5,2))
 pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
 for (i in 1:length(file)){
   region = file[i]
@@ -85,9 +85,9 @@ for (i in 1:length(file)){
 ```
 
 
-```{r fig.width=10, fig.height=20}
+```{r fig.width=10, fig.height=18}
 
-par(mfrow = c(6,2))
+par(mfrow = c(5,2))
 for (i in 1:length(file.aoa)){
   region.aoa = file.aoa[i]
   region.coa = file.coa[i]

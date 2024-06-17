@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree17cba29b0fd472dcc244ed565a634e48753c6dedtargetblank17cba29a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/17cba29b0fd472dcc244ed565a634e48753c6ded" target="_blank">17cba29</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreedee32337b59a7532c9d364ea03372e67ff2e6aa3targetblankdee3233a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/dee32337b59a7532c9d364ea03372e67ff2e6aa3" target="_blank">dee3233</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree17cba29b0fd472dcc244ed565a634e48753c6dedtargetblank17cba29a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreedee32337b59a7532c9d364ea03372e67ff2e6aa3targetblankdee3233a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/17cba29b0fd472dcc244ed565a634e48753c6ded" target="_blank">17cba29</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/dee32337b59a7532c9d364ea03372e67ff2e6aa3" target="_blank">dee3233</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -535,6 +535,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/dee32337b59a7532c9d364ea03372e67ff2e6aa3/analysis/gwas_asthma.Rmd" target="_blank">dee3233</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-17
+</td>
+<td>
+wflow_publish("analysis/gwas_asthma.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/9919087bc53578d416965edf4853cac17ecf7b85/docs/gwas_asthma.html" target="_blank">9919087</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -886,11 +920,50 @@ for (i in 1:length(file.survival)){
   snp_ids = sapply(rownames(gwas.survival), function(x) unlist(strsplit(x, &quot;_&quot;))[1])
   gwas.survival$ID = snp_ids
   dat = merge(gwas.logistic, gwas.survival, by = &quot;ID&quot;)
-  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = &quot;log10-pval&quot;, xlab = &quot;Position&quot;, ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa)) + 1) )
-  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5, col = &quot;red&quot;)
-  legend(&quot;topright&quot;, legend = c(&quot;logistic.gwas&quot;, &quot;survival.gwas&quot;), col = c(&quot;black&quot;, &quot;red&quot;), pch = 20)
+  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = &quot;log10-pval&quot;, xlab = &quot;Position&quot;, ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa)) + 1), col = &quot;#de2d26&quot;)
+  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5, col = &quot;#2c7fb8&quot;)
+  
+  
+  legend(&quot;topright&quot;, legend = c(&quot;logistic.gwas&quot;, &quot;survival.gwas&quot;), col = c(&quot;#de2d26&quot;, &quot;#2c7fb8&quot;), pch = 20)
 }</code></pre>
 <p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/9919087bc53578d416965edf4853cac17ecf7b85/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">9919087</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

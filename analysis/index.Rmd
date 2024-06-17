@@ -16,6 +16,6 @@ editor_options:
 
 UKB self-report asthma:
 
-+ [logistic gwas](logistic_gwas_asthma.html)
++ [gwas results](gwas_asthma.html)
 
 + [ukb self-report asthma result](asthma_self_report.html)

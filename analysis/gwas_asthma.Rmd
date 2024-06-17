@@ -139,9 +139,11 @@ for (i in 1:length(file.survival)){
   snp_ids = sapply(rownames(gwas.survival), function(x) unlist(strsplit(x, "_"))[1])
   gwas.survival$ID = snp_ids
   dat = merge(gwas.logistic, gwas.survival, by = "ID")
-  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position", ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa)) + 1) )
-  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5, col = "red")
-  legend("topright", legend = c("logistic.gwas", "survival.gwas"), col = c("black", "red"), pch = 20)
+  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position", ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa)) + 1), col = "#de2d26")
+  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5, col = "#2c7fb8")
+  
+  
+  legend("topright", legend = c("logistic.gwas", "survival.gwas"), col = c("#de2d26", "#2c7fb8"), pch = 20)
 }
 
 ```

@@ -1,0 +1,108 @@
+---
+title: "GWAS results"
+author: "Yunqi Yang"
+date: "6/13/2024"
+output: html_document
+---
+
+## Description:
+
+1. Logistic gwas result for all asthma, childhood asthma and adulthood asthma
+
+2. Survival gwas result for all asthma, childhood asthma and adulthood asthma
+
+```{r}
+library(stringr)
+```
+
+### 1. Logistic gwas
+```{r}
+file.aoa <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/aoa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+file.coa <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/coa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+
+file <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/all", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+```
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+for (i in 1:length(file)){
+  region = file[i]
+  region_name = strsplit(region, "/")[[1]][9]
+  gwas = read.csv(region, header = TRUE, sep = "\t")
+  plot(gwas$POS, -log10(gwas$P), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position")
+}
+
+```
+
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+for (i in 1:length(file.aoa)){
+  region.aoa = file.aoa[i]
+  region.coa = file.coa[i]
+  region_name = strsplit(region.aoa, "/")[[1]][9]
+  gwas.aoa = read.csv(region.aoa, header = TRUE, sep = "\t")
+  gwas.coa = read.csv(region.coa, header = TRUE, sep = "\t")
+  ymin = min(log10(gwas.aoa$P)) - 1
+  ymax = max(-log10(gwas.coa$P)) + 2
+  plot(gwas.aoa$POS, log10(gwas.aoa$P), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = "#2c7fb8", main = region_name, ylab = "log10-pval", xlab = "Position")
+  points(gwas.coa$POS, -log10(gwas.coa$P), pch = 20, cex = 0.5, col = "#de2d26")
+  legend("topright", legend = c("COA", "AOA"), col = c("#de2d26", "#2c7fb8"), pch = 20)
+}
+
+```
+
+
+
+
+
+
+
+
+### 2. Survival gwas
+
+```{r}
+path_to_files = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv"
+file.aoa <- list.files(path = path_to_files, pattern = "^aoa.*\\.rds$", full.names = TRUE)
+file.coa <- list.files(path = path_to_files, pattern = "^coa.*\\.rds$", full.names = TRUE)
+file <- list.files(path = path_to_files, pattern = "^all.*\\.rds$", full.names = TRUE)
+
+```
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+for (i in 1:length(file)){
+  region = file[i]
+  region_name = str_extract(region, pattern)
+  gwas = readRDS(region)
+  plot(-log10(gwas[, 'p.value.spa']), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position")
+}
+
+```
+
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+for (i in 1:length(file.aoa)){
+  region.aoa = file.aoa[i]
+  region.coa = file.coa[i]
+  region_name = str_extract(region.aoa, pattern)
+  gwas.aoa = readRDS(region.aoa)
+  gwas.coa = readRDS(region.coa)
+  ymin = min(log10(gwas.aoa[, 'p.value.spa']), na.rm = TRUE) - 1
+  ymax = max(-log10(gwas.coa[, 'p.value.spa']), na.rm = TRUE) + 2
+  plot(log10(gwas.aoa[, 'p.value.spa']), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = "#2c7fb8", main = region_name, ylab = "log10-pval", xlab = "Position")
+  points(-log10(gwas.coa[, 'p.value.spa']), pch = 20, cex = 0.5, col = "#de2d26")
+  legend("topright", legend = c("COA", "AOA"), col = c("#de2d26", "#2c7fb8"), pch = 20)
+}
+
+```
+
+
+
+

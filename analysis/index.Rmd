@@ -18,4 +18,6 @@ UKB self-report asthma:
 
 + [gwas results](gwas_asthma.html)
 
++ [cut region for finemapping](region_cut.html)
+
 + [ukb self-report asthma result](asthma_self_report.html)

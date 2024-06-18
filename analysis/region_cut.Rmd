@@ -1,0 +1,84 @@
+---
+title: "Cut region for finemapping"
+author: "Yunqi Yang"
+date: "6/18/2024"
+output: html_document
+---
+
+## Description:
+
+This file cut the regions from survival GWAS results to create smaller regions for finemapping. The cutting whether
+
+(1) select the top signal + surrounding SNPs based on all asthma; 
+
+(2) select the top signal + surrounding SNPs based on AOA. 
+
+
+```{r}
+regions = c("chr1_150600001_155100000",
+            "chr11_75500001_77400000", 
+            "chr15_59000001_63400000",
+            "chr17_33500001_39800000",
+            "chr2_102100001_105300000",
+            "chr6_30500001_32100000")
+
+regions.aoa = c("chr12_46000001_48700000", "chr2_143400001_147900000")
+```
+
+```{r fig.width=10, fig.height=12}
+par(mfrow = c(3,2))
+dir = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv"
+for (reg in regions){
+  file_path = paste0(dir, "/all_gwas_", reg, ".rds")
+  gwas = data.frame(readRDS(file_path))
+  print(paste0("There are ", nrow(gwas), " SNPs in ", reg))
+  top = which(gwas$p.value.spa == min(gwas$p.value.spa))
+  
+  start = top - 2500
+  end = top + 2500
+  
+  if (reg == "chr1_150600001_155100000"){ start = top - 1500}
+  if (reg == "chr11_75500001_77400000"){ 
+    start = top - 1000
+    end = top + 1000
+    }
+  if (reg == "chr15_59000001_63400000") {
+    start = top - 500
+    end = top + 500
+  }
+  if (reg == "chr17_33500001_39800000"){start = top - 1500}
+  
+  start = max(1, start)
+  end = min(nrow(gwas), end)
+  print(paste0("There are ", nrow(gwas[start:end, ]), " SNPs remain in ", reg))
+  plot(-log10(gwas[start:end, ]$p.value.spa),pch = 20, cex = 0.5, main = reg)
+  write.table(rownames(gwas[start:end, ]),
+              paste0("/Users/nicholeyang/Downloads/survivalsusie/data/asthma_finemap_snplist/sub_", reg, '.txt'))
+}
+```
+
+
+
+```{r }
+reg = "chr12_46000001_48700000"
+file_path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv/aoa_gwas_chr12_46000001_48700000.rds"
+gwas = data.frame(readRDS(file_path))
+start = 5500
+end = 7000
+plot(-log10(gwas[start:end, ]$p.value.spa),pch = 20, cex = 0.5, main = reg)
+write.table(rownames(gwas[start:end, ]),
+              paste0("/Users/nicholeyang/Downloads/survivalsusie/data/asthma_finemap_snplist/sub_", reg, '.txt'))
+```
+
+```{r }
+reg = "chr2_143400001_147900000"
+file_path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv/aoa_gwas_chr12_46000001_48700000.rds"
+gwas = data.frame(readRDS(file_path))
+start = 5000
+end = 7000
+plot(-log10(gwas[start:end, ]$p.value.spa),pch = 20, cex = 0.5, main = reg)
+write.table(rownames(gwas[start:end, ]),
+              paste0("/Users/nicholeyang/Downloads/survivalsusie/data/asthma_finemap_snplist/sub_", reg, '.txt'))
+```
+
+

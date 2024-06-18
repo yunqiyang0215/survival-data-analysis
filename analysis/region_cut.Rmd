@@ -16,6 +16,7 @@ This file cut the regions from survival GWAS results to create smaller regions f
 
 ```{r}
 regions = c("chr1_150600001_155100000",
+            "chr10_6600001_12200000",
             "chr11_75500001_77400000", 
             "chr15_59000001_63400000",
             "chr17_33500001_39800000",
@@ -25,8 +26,8 @@ regions = c("chr1_150600001_155100000",
 regions.aoa = c("chr12_46000001_48700000", "chr2_143400001_147900000")
 ```
 
-```{r fig.width=10, fig.height=12}
-par(mfrow = c(3,2))
+```{r fig.width=10, fig.height=14}
+par(mfrow = c(4,2))
 dir = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv"
 for (reg in regions){
   file_path = paste0(dir, "/all_gwas_", reg, ".rds")

@@ -20,4 +20,8 @@ UKB self-report asthma:
 
 + [cut region for finemapping](region_cut.html)
 
++ [susie result: whole UKB 1](susie_asthma_result1.html)
+
++ [susie result: whole UKB 2](susie_asthma_result2.html)
+
 + [ukb self-report asthma result](asthma_self_report.html)

@@ -1,0 +1,217 @@
+---
+title: "self-report asthma"
+author: "Yunqi Yang"
+date: "4/16/2024"
+output: html_document
+---
+
+```{r}
+library(survival)
+library(susieR)
+devtools::load_all("/Users/nicholeyang/Downloads/logisticsusie")
+```
+
+### Region 1
+
+#### 1. All asthma cases
+```{r}
+region = "chr11_75500001_77400000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+print(res[[3]])
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
+
+snps2 = colnames(X)[cs$cs$L2]
+colors <- ifelse(rownames(gwas) %in% snps2, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
+
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
+```
+
+
+
+#### 2. COA
+```{r}
+region = "chr11_75500001_77400000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
+
+snps2 = colnames(X)[cs$cs$L2]
+colors <- ifelse(rownames(gwas) %in% snps2, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
+
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
+```
+
+
+
+
+
+
+
+
+
+
+
+
+#### 3. AOA
+```{r}
+region = "chr11_75500001_77400000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
+
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+```
+
+
+
+
+
+
+
+
+
+
+
+
+### Region 3
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr11_75000000_77000000.rds")
+gwas = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr11_75000000_77000000.rds") 
+gwas.cond = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/chr11_75000000_77000000.conditional.rds")
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r fig.height = 8, fig.width=8}
+
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.6, pch = 20, ylim = c(34, 38), main = "Zoom in CS 1")
+
+plot(-log10(gwas.cond[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(conditional p-value)", cex = 0.6, pch = 20, ylim = c(23, 26), main = "Conditional association of CS 1")
+```
+
+
+**Comment**: those not in the CS either have larger pvalue or lower MAF. For example MAF around 0.45 vs. 0.47.
+
+SNP rs61894547 is on the intron of gene EMSY, a known gene associated with risk of asthma.
+
+
+### Region 4
+```{r}
+res = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res_susie/fit.susie.chr17_37500000_39000000.rds")
+gwas = readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/res202404/gwas_chr17_37500000_39000000.rds")
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+#par(mfrow = c(1,))
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20)
+
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+```
+

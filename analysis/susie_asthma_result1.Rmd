@@ -76,7 +76,6 @@ X = res[[2]]
 
 pip <- logisticsusie:::get_pip(fit$alpha)
 effect_estimate <- colSums(fit$alpha * fit$mu)
-pip.sorted = sort(pip, decreasing = TRUE)
 
 class(fit) = "susie"
 cs <- susie_get_cs(fit, X)
@@ -114,7 +113,6 @@ X = res[[2]]
 
 pip <- logisticsusie:::get_pip(fit$alpha)
 effect_estimate <- colSums(fit$alpha * fit$mu)
-pip.sorted = sort(pip, decreasing = TRUE)
 
 class(fit) = "susie"
 cs <- susie_get_cs(fit, X)
@@ -139,6 +137,8 @@ rm()
 ### Region 2
 
 No GWAS significant signal for COA, marginal significant for AOA. 
+
+Result: for all asthma and COA, no CS found. For AOA, there is one CS. rs56389811_T was the top significant signal reported by Carole's paper, and also the top significant one found in AOA survival gwas. PIP = 0.2
 
 
 #### 1. All asthma cases
@@ -178,7 +178,6 @@ X = res[[2]]
 
 pip <- logisticsusie:::get_pip(fit$alpha)
 effect_estimate <- colSums(fit$alpha * fit$mu)
-pip.sorted = sort(pip, decreasing = TRUE)
 
 class(fit) = "susie"
 cs <- susie_get_cs(fit, X)
@@ -199,7 +198,6 @@ X = res[[2]]
 
 pip <- logisticsusie:::get_pip(fit$alpha)
 effect_estimate <- colSums(fit$alpha * fit$mu)
-pip.sorted = sort(pip, decreasing = TRUE)
 
 class(fit) = "susie"
 cs <- susie_get_cs(fit, X)
@@ -216,17 +214,6 @@ plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p
 ```{r}
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 ```
-
-
-
-
-
-
-
-
-
-
-
 
 
 ```{r}

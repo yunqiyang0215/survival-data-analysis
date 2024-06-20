@@ -21,6 +21,8 @@ devtools::load_all("/Users/nicholeyang/Downloads/logisticsusie")
 
 Marginal significant signals for COA, weak signals for AOA. 
 
+rs11071559_T was the one with smallest pvalue in all asthma, and PIP = 0.24. Carole's paper also reported this one as the top signal. But in AOA, it's not the one with smallest pval, the pip is a lot smaller. 
+
 #### 1. All asthma cases
 ```{r}
 region = "chr15_59000001_63400000"

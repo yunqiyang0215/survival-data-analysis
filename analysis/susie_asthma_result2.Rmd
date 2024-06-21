@@ -118,3 +118,125 @@ cs
 ```{r}
 rm(res, gwas, X, fit)
 ```
+
+
+
+### Region 2
+
+Very significant signals for COA, marginal significant signals for AOA. 
+
+All asthma has a very weird CS. 
+
+
+#### 1. All asthma cases
+```{r}
+region = "chr2_102100001_105300000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+print(res[[3]])
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
+
+snps2 = colnames(X)[cs$cs$L2]
+colors <- ifelse(rownames(gwas) %in% snps2, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
+```
+
+```{r}
+rm(res, gwas, X, fit)
+```
+
+#### 2. COA
+```{r}
+region = "chr2_102100001_105300000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.5, pch = 20, main = "CS 1")
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+```
+
+
+```{r}
+rm(res, gwas, X, fit)
+```
+
+#### 3. AOA
+```{r}
+region = "chr2_102100001_105300000"
+res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds"))
+
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+pip <- logisticsusie:::get_pip(fit$alpha)
+effect_estimate <- colSums(fit$alpha * fit$mu)
+
+class(fit) = "susie"
+cs <- susie_get_cs(fit, X)
+cs
+```
+
+```{r}
+snps1 = colnames(X)[cs$cs$L1]
+colors <- ifelse(rownames(gwas) %in% snps1, "red", "black")
+plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 1")
+```
+
+```{r}
+cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
+```
+
+
+```{r}
+rm(res, gwas, X, fit)
+```

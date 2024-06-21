@@ -125,7 +125,7 @@ rm(res, gwas, X, fit)
 
 Very significant signals for COA, marginal significant signals for AOA. 
 
-All asthma has a very weird CS. 
+All asthma has a very weird CS. One All asthma CS overlap with COA CS. AOA CS has no overlap with other CSs. 
 
 
 #### 1. All asthma cases

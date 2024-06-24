@@ -1,0 +1,254 @@
+---
+title: "Kaplan meier plots"
+output: html_document
+date: '2024-06-24'
+---
+
+```{r}
+library(survival)
+library(survminer)
+library(susieR)
+library(dplyr)
+library(gridExtra)
+devtools::load_all("/project2/mstephens/yunqiyang/surv-susie/logisticsusie")
+```
+
+
+###  1. Region chr11_75500001_77400000: COA pvalue = 1e-30, AOA pvalue = 1e-10. 
+
+```{r}
+region = "chr11_75500001_77400000"
+res = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_", region, ".rds"))
+pheno = readRDS("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds")
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+effect_estimate <- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c("SNP", "effect")
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = "SNP")
+
+```
+
+```{r}
+res.sorted <- res %>% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]
+pheno <- pheno[order(pheno$IID), ]
+```
+
+```{r}
+snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno <- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno <- as.numeric(as.character(geno))
+
+  data <- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y <- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit <- survfit(y ~ data$geno)
+  
+  plots[[i]] <- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65),
+           pval.coord = c(10, 0.8),
+           xlab = "Survival years",
+           ylab = "Survival probability",
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}
+```
+
+```{r fig.width=8, fig.height=12}
+# Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
+```
+
+
+
+
+
+
+
+###  2. Region chr12_46000001_48700000: No GWAS significant signal for COA, marginal significant for AOA.
+
+```{r}
+region = "chr12_46000001_48700000"
+res = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_", region, ".rds"))
+pheno = readRDS("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds")
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+effect_estimate <- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c("SNP", "effect")
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = "SNP")
+```
+
+```{r}
+res.sorted <- res %>% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]
+pheno <- pheno[order(pheno$IID), ]
+```
+
+```{r}
+snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno <- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno <- as.numeric(as.character(geno))
+
+  data <- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y <- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit <- survfit(y ~ data$geno)
+  
+  plots[[i]] <- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = "Survival years",
+           ylab = "Survival probability",
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}
+```
+
+```{r fig.width=8, fig.height=12}
+# Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
+```
+
+
+
+
+
+
+###  3. Region chr17_33500001_39800000: COA pval = 1e-80, very week signals for AOA.
+
+```{r}
+region = "chr17_33500001_39800000"
+res = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_", region, ".rds"))
+pheno = readRDS("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds")
+```
+
+```{r}
+fit = res[[1]]
+X = res[[2]]
+
+effect_estimate <- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c("SNP", "effect")
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = "SNP")
+```
+
+```{r}
+res.sorted <- res %>% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]
+pheno <- pheno[order(pheno$IID), ]
+```
+
+```{r}
+snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno <- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno <- as.numeric(as.character(geno))
+
+  data <- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y <- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit <- survfit(y ~ data$geno)
+  
+  plots[[i]] <- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = "Survival years",
+           ylab = "Survival probability",
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}
+```
+
+```{r fig.width=8, fig.height=12}
+# Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
+```
+
+

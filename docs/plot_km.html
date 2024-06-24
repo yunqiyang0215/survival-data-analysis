@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2024-06-24" />
+
+<title>Kaplan meier plots</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">coxPHSuSIE-data-application</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/yunqiyang0215/coxPHSuSIE-data-application">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Kaplan meier plots</h1>
+<h4 class="date">2024-06-24</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-06-24
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>survival-data-analysis/</code>
+<span class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20240324code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20240324)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20240324code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20240324)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreea9b2bd9985071d49903196e9ecc3586c5e95ee6ctargetblanka9b2bd9a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/a9b2bd9985071d49903196e9ecc3586c5e95ee6c" target="_blank">a9b2bd9</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreea9b2bd9985071d49903196e9ecc3586c5e95ee6ctargetblanka9b2bd9a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/a9b2bd9985071d49903196e9ecc3586c5e95ee6c" target="_blank">a9b2bd9</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown (<code>analysis/plot_km.Rmd</code>) and HTML
+(<code>docs/plot_km.html</code>) files. If you’ve configured a remote
+Git repository (see <code>?wflow_git_remote</code>), click on the
+hyperlinks in the table below to view the files as they were in that
+past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/a9b2bd9985071d49903196e9ecc3586c5e95ee6c/analysis/plot_km.Rmd" target="_blank">a9b2bd9</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-06-24
+</td>
+<td>
+wflow_publish("analysis/plot_km.Rmd")
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(survival)
+library(survminer)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>Loading required package: ggpubr</code></pre>
+<pre><code>
+Attaching package: &#39;survminer&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:survival&#39;:
+
+    myeloma</code></pre>
+<pre class="r"><code>library(susieR)
+library(dplyr)</code></pre>
+<pre><code>
+Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag</code></pre>
+<pre><code>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>library(gridExtra)</code></pre>
+<pre><code>
+Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    combine</code></pre>
+<pre class="r"><code>devtools::load_all(&quot;/project2/mstephens/yunqiyang/surv-susie/logisticsusie&quot;)</code></pre>
+<pre><code>ℹ Loading logisticsusie</code></pre>
+<div
+id="region-chr11_75500001_77400000-coa-pvalue-1e-30-aoa-pvalue-1e-10."
+class="section level3">
+<h3>1. Region chr11_75500001_77400000: COA pvalue = 1e-30, AOA pvalue =
+1e-10.</h3>
+<pre class="r"><code>region = &quot;chr11_75500001_77400000&quot;
+res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
+pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+effect_estimate &lt;- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c(&quot;SNP&quot;, &quot;effect&quot;)
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
+<pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]</code></pre>
+<pre><code>           SNP      effect        MAF missing.rate  p.value.spa p.value.norm
+1 rs55646091_A 0.078817939 0.05086819            0 5.110427e-25 9.672793e-26
+2 rs61894547_T 0.044914244 0.05155540            0 3.916273e-24 8.543620e-25
+3  rs7936323_A 0.019238185 0.47659499            0 1.070192e-37 1.033056e-37
+4  rs7936312_T 0.016654340 0.47661661            0 1.251399e-37 1.208159e-37
+5  rs7936070_T 0.014189396 0.47669712            0 1.503789e-37 1.452115e-37
+6  rs7936434_C 0.009538595 0.47688517            0 2.342714e-37 2.263324e-37
+       Stat       Var        z
+1  572.9645  2983.742 10.48931
+2  570.9379  3083.681 10.28145
+3 1615.2043 15834.626 12.83582
+4 1613.8898 15838.788 12.82369
+5 1612.0648 15838.203 12.80942
+6 1607.7404 15838.510 12.77494</code></pre>
+<pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
+<pre class="r"><code>snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65),
+           pval.coord = c(10, 0.8),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-6-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div
+id="region-chr12_46000001_48700000-no-gwas-significant-signal-for-coa-marginal-significant-for-aoa."
+class="section level3">
+<h3>2. Region chr12_46000001_48700000: No GWAS significant signal for
+COA, marginal significant for AOA.</h3>
+<pre class="r"><code>region = &quot;chr12_46000001_48700000&quot;
+res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
+pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+effect_estimate &lt;- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c(&quot;SNP&quot;, &quot;effect&quot;)
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
+<pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]</code></pre>
+<pre><code>           SNP       effect       MAF missing.rate  p.value.spa p.value.norm
+1 rs11168252_A -0.006449541 0.2392817            0 1.487361e-06 1.483869e-06
+2 rs56389811_T -0.006110153 0.2388950            0 1.582839e-06 1.579167e-06
+3 rs11168250_T -0.005340826 0.2389935            0 1.855563e-06 1.851454e-06
+4 rs11168244_T -0.004894118 0.2389606            0 1.990153e-06 1.985810e-06
+5 rs11168245_G -0.004851431 0.2391498            0 2.019029e-06 2.014648e-06
+6 rs11168246_A -0.002366053 0.2092597            0 5.684105e-06 5.672996e-06
+       Stat      Var         z
+1 -515.7744 11481.97 -4.813396
+2 -515.1776 11514.90 -4.800947
+3 -512.4009 11544.25 -4.768997
+4 -510.1971 11513.30 -4.754863
+5 -510.1121 11523.58 -4.751949
+6 -443.6812  9558.07 -4.538224</code></pre>
+<pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
+<pre class="r"><code>snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-11-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div
+id="region-chr17_33500001_39800000-coa-pval-1e-80-very-week-signals-for-aoa."
+class="section level3">
+<h3>3. Region chr17_33500001_39800000: COA pval = 1e-80, very week
+signals for AOA.</h3>
+<pre class="r"><code>region = &quot;chr17_33500001_39800000&quot;
+res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
+pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+effect_estimate &lt;- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c(&quot;SNP&quot;, &quot;effect&quot;)
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
+<pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]</code></pre>
+<pre><code>            SNP      effect        MAF missing.rate  p.value.spa p.value.norm
+1 rs146644295_C  0.10445301 0.02227598            0 1.509883e-10 1.103519e-10
+2 rs112401631_A  0.10380779 0.02299226            0 3.594625e-10 2.742929e-10
+3   rs8067124_T  0.04710491 0.02203134            0 1.540705e-09 1.236998e-09
+4   rs4795400_T -0.01190853 0.47122553            0 7.079374e-36 6.843430e-36
+5  rs12949100_A -0.01050079 0.47093228            0 7.665040e-36 7.409160e-36
+6   rs4795399_C -0.01007555 0.47121659            0 8.096519e-36 7.827701e-36
+        Stat       Var          z
+1   233.3248  1307.758   6.452043
+2   227.7786  1301.973   6.312653
+3   200.3148  1087.127   6.075373
+4 -1573.4716 15827.696 -12.506911
+5 -1572.9638 15833.460 -12.500598
+6 -1573.0299 15845.867 -12.496229</code></pre>
+<pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
+<pre class="r"><code>snp_list = res.sorted$SNP[1:6]
+plots = list()
+
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )  
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<pre><code>Warning: Removed 5 rows containing missing values or values outside the scale range
+(`geom_step()`).</code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 4 rows containing missing values or values outside the scale range
+(`geom_step()`).</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.0 (2022-04-22)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C         LC_TIME=C           
+ [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=C       
+ [7] LC_PAPER=C           LC_NAME=C            LC_ADDRESS=C        
+[10] LC_TELEPHONE=C       LC_MEASUREMENT=C     LC_IDENTIFICATION=C 
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] logisticsusie_0.0.0.9004 testthat_3.1.4           gridExtra_2.3           
+ [4] dplyr_1.1.4              susieR_0.12.35           survminer_0.4.9         
+ [7] ggpubr_0.6.0             ggplot2_3.5.1            survival_3.3-1          
+[10] workflowr_1.7.0         
+
+loaded via a namespace (and not attached):
+ [1] ggtext_0.1.2       matrixStats_0.62.0 fs_1.5.2           usethis_2.1.5     
+ [5] devtools_2.4.3     httr_1.4.3         rprojroot_2.0.3    tools_4.2.0       
+ [9] backports_1.4.1    bslib_0.3.1        utf8_1.2.2         R6_2.5.1          
+[13] irlba_2.3.5        colorspace_2.0-3   withr_2.5.0        tidyselect_1.2.1  
+[17] prettyunits_1.1.1  processx_3.8.0     compiler_4.2.0     git2r_0.30.1      
+[21] cli_3.6.2          xml2_1.3.3         desc_1.4.1         labeling_0.4.2    
+[25] sass_0.4.1         scales_1.3.0       survMisc_0.5.6     callr_3.7.3       
+[29] mixsqp_0.3-48      stringr_1.5.1      digest_0.6.29      rmarkdown_2.14    
+[33] pkgconfig_2.0.3    htmltools_0.5.2    sessioninfo_1.2.2  highr_0.9         
+[37] fastmap_1.1.0      rlang_1.1.3        rstudioapi_0.13    jquerylib_0.1.4   
+[41] generics_0.1.2     farver_2.1.0       zoo_1.8-10         jsonlite_1.8.0    
+[45] car_3.1-1          magrittr_2.0.3     Matrix_1.5-3       Rcpp_1.0.8.3      
+[49] munsell_0.5.0      fansi_1.0.3        abind_1.4-5        lifecycle_1.0.4   
+[53] stringi_1.7.6      whisker_0.4        yaml_2.3.5         carData_3.0-5     
+[57] brio_1.1.3         pkgbuild_1.3.1     plyr_1.8.7         grid_4.2.0        
+[61] promises_1.2.0.1   crayon_1.5.1       lattice_0.20-45    splines_4.2.0     
+[65] gridtext_0.1.5     knitr_1.39         ps_1.7.0           pillar_1.9.0      
+[69] ggsignif_0.6.3     pkgload_1.2.4      glue_1.6.2         evaluate_0.15     
+[73] getPass_0.2-2      data.table_1.14.2  remotes_2.4.2.1    vctrs_0.6.5       
+[77] httpuv_1.6.5       gtable_0.3.0       purrr_1.0.2        tidyr_1.3.1       
+[81] reshape_0.8.9      km.ci_0.5-6        cachem_1.0.6       xfun_0.30         
+[85] xtable_1.8-4       broom_0.8.0        rstatix_0.7.2      later_1.3.0       
+[89] tibble_3.2.1       memoise_2.0.1      KMsurv_0.1-5       ellipsis_0.3.2    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

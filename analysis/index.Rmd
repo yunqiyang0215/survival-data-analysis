@@ -18,6 +18,8 @@ UKB self-report asthma:
 
 + [gwas results](gwas_asthma.html)
 
++ [Kaplan Meier plots](plot_km.html)
+
 + [cut region for finemapping](region_cut.html)
 
 + [susie result: whole UKB 1](susie_asthma_result1.html)

@@ -35,7 +35,6 @@ effect_estimate$effect = as.numeric(effect_estimate$effect)
 gwas = data.frame(gwas)
 gwas$SNP = rownames(gwas)
 res = merge(effect_estimate, gwas, by = "SNP")
-
 ```
 
 ```{r}
@@ -89,10 +88,6 @@ for (i in 1:length(snp_list)){
 # Arrange the plots in a grid layout
 grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
 ```
-
-
-
-
 
 
 
@@ -173,9 +168,6 @@ grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
 
 
 
-
-
-
 ###  3. Region chr17_33500001_39800000: COA pval = 1e-80, very week signals for AOA.
 
 ```{r}
@@ -208,7 +200,6 @@ pheno <- pheno[order(pheno$IID), ]
 ```{r}
 snp_list = res.sorted$SNP[1:6]
 plots = list()
-
 for (i in 1:length(snp_list)){
   indx = which(colnames(X) == snp_list[i])
   # round genotype to 0, 1, 2
@@ -241,7 +232,7 @@ for (i in 1:length(snp_list)){
                                              axis.title = element_text(size = 12),   # Adjust axis title size
                                              strip.text = element_text(size = 10)),  # Adjust strip text size
            risk.table.fontsize = 2.5
-           )  
+           )
 
 }
 ```

@@ -73,7 +73,7 @@ write.table(rownames(gwas[start:end, ]),
 
 ```{r }
 reg = "chr2_143400001_147900000"
-file_path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv/aoa_gwas_chr12_46000001_48700000.rds"
+file_path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv/aoa_gwas_chr2_143400001_147900000.rds"
 gwas = data.frame(readRDS(file_path))
 start = 5000
 end = 7000

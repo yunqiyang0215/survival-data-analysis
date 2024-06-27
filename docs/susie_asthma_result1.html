@@ -384,7 +384,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-20
+<strong>Last updated:</strong> 2024-06-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreef5dfe157c35c038ea66e994b05e2d6a65d4fd7a1targetblankf5dfe15a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/f5dfe157c35c038ea66e994b05e2d6a65d4fd7a1" target="_blank">f5dfe15</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreed80d61c93b44f2d1669140792468af700eaf2e12targetblankd80d61ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/d80d61c93b44f2d1669140792468af700eaf2e12" target="_blank">d80d61c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreef5dfe157c35c038ea66e994b05e2d6a65d4fd7a1targetblankf5dfe15a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreed80d61c93b44f2d1669140792468af700eaf2e12targetblankd80d61ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/f5dfe157c35c038ea66e994b05e2d6a65d4fd7a1" target="_blank">f5dfe15</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/d80d61c93b44f2d1669140792468af700eaf2e12" target="_blank">d80d61c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -536,6 +536,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/d80d61c93b44f2d1669140792468af700eaf2e12/analysis/susie_asthma_result1.Rmd" target="_blank">d80d61c</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-27
+</td>
+<td>
+wflow_publish("analysis/susie_asthma_result1.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/85ef406541e45352a5d277341daa1a6d646ea4c5/docs/susie_asthma_result1.html" target="_blank">85ef406</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1329,6 +1363,569 @@ NULL
 $requested_coverage
 [1] 0.95</code></pre>
 <pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+</div>
+<div id="region-4" class="section level3">
+<h3>Region 4</h3>
+<p>Marginal significant signals for both COA and AOA. Combined analysis a lot more significant.</p>
+<div id="all-asthma-cases-3" class="section level4">
+<h4>1. All asthma cases</h4>
+<pre class="r"><code>region = &quot;chr10_6600001_12200000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+print(res[[3]])</code></pre>
+<pre><code>     user    system   elapsed 
+488558.23 162450.30  72205.62 </code></pre>
+<pre class="r"><code>pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.8606128 0.7544745 0.6370307 0.5253848 0.3574363 0.2456690 0.2340421
+ [8] 0.1934556 0.1697711 0.1198051</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+ [1] 2465 2467 2472 2473 2475 2477 2482 2483 2487 2501
+
+$cs$L3
+[1] 2435 2440 2453
+
+$cs$L5
+[1] 2365 2391
+
+$cs$L7
+[1] 2433 3018
+
+$cs$L6
+ [1] 112 113 115 116 120 121 123 124 126 127 128 130 131 132 133 134 136 137 138
+[20] 139 140 142 143
+
+$cs$L2
+ [1] 1531 1533 1536 1572 1573 1587 1590 1603 1616 1621 1628 1631 1633 1636 1640
+[16] 1642 1645 1649 1655 1660 1663 1664 1665 1683 1684 1695 1715 1719 1727 1780
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.9962847     0.9986513       0.9989900
+L3    0.9795058     0.9862823       0.9796464
+L5    0.9698670     0.9698670       0.9698670
+L7    0.8873465     0.8873465       0.8873465
+L6    0.7206002     0.9193265       0.9841399
+L2    0.6739457     0.9555920       0.9948012
+
+$cs_index
+[1] 1 3 5 7 6 2
+
+$coverage
+[1] 0.9723606 0.9998067 0.9502191 0.9583051 0.9997691 0.9518624
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>par(mfrow = c(3,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)
+
+snps2 = colnames(X)[cs$cs$L2]
+colors &lt;- ifelse(rownames(gwas) %in% snps2, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 2&quot;)
+
+snps3 = colnames(X)[cs$cs$L3]
+colors &lt;- ifelse(rownames(gwas) %in% snps3, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 3&quot;)
+
+snps5 = colnames(X)[cs$cs$L5]
+colors &lt;- ifelse(rownames(gwas) %in% snps5, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 5&quot;)
+
+
+snps6 = colnames(X)[cs$cs$L6]
+colors &lt;- ifelse(rownames(gwas) %in% snps6, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 6&quot;)
+
+snps7 = colnames(X)[cs$cs$L7]
+colors &lt;- ifelse(rownames(gwas) %in% snps7, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 7&quot;)</code></pre>
+<p><img src="figure/susie_asthma_result1.Rmd/unnamed-chunk-39-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                  MAF missing.rate  p.value.spa p.value.norm      Stat      Var
+rs962992_C  0.4233676            0 4.972442e-36 4.602638e-36 -1561.201 15503.66
+rs962993_T  0.4233362            0 4.244034e-36 3.926629e-36 -1562.794 15504.17
+rs1775553_T 0.4231244            0 5.990803e-36 5.546556e-36 -1559.401 15504.49
+rs1775554_C 0.4232281            0 7.134297e-36 6.609131e-36 -1557.634 15503.81
+rs1775555_C 0.4234788            0 7.750566e-36 7.183546e-36 -1557.319 15513.96
+rs1663687_A 0.4231007            0 8.284016e-36 7.675699e-36 -1556.507 15510.86
+rs1663680_C 0.4234260            0 8.028930e-36 7.441096e-36 -1557.934 15533.18
+rs1031163_T 0.4231330            0 7.225009e-36 6.691733e-36 -1558.794 15529.36
+rs1444782_A 0.4233832            0 1.026801e-35 9.522526e-36 -1555.862 15540.63
+rs2197415_G 0.4226570            0 2.467360e-36 2.277027e-36 -1566.524 15471.91
+                    z           
+rs962992_C  -12.53839 0.09949565
+rs962993_T  -12.55097 0.11098298
+rs1775553_T -12.52359 0.08463862
+rs1775554_C -12.50968 0.07540126
+rs1775555_C -12.50306 0.07407266
+rs1663687_A -12.49779 0.07108740
+rs1663680_C -12.50026 0.07564261
+rs1031163_T -12.50869 0.07989495
+rs1444782_A -12.48063 0.06846180
+rs2197415_G -12.59404 0.23404207</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
+rs11255890_A 0.3814107            0 3.749630e-06 3.747194e-06  563.2263
+rs11255891_C 0.3811078            0 3.538737e-06 3.536402e-06  564.8737
+rs7923068_A  0.3763112            0 6.214948e-06 6.211267e-06  549.0645
+rs7087891_T  0.3818541            0 6.440784e-06 6.437136e-06  551.5516
+rs7079263_T  0.3818331            0 7.987898e-06 7.983613e-06  546.0822
+rs7090156_A  0.3819658            0 8.062806e-06 8.058492e-06  546.2313
+rs10795674_T 0.3818882            0 7.872046e-06 7.867806e-06  546.8361
+rs4749820_A  0.3819934            0 7.467303e-06 7.463229e-06  548.4964
+rs10795677_C 0.3820472            0 7.206742e-06 7.202777e-06  549.6670
+rs3928823_A  0.3816941            0 5.804970e-06 5.801590e-06  555.2804
+rs11255912_A 0.3818426            0 5.072942e-06 5.069891e-06  558.8195
+rs9665552_C  0.3821648            0 6.404849e-06 6.401220e-06  553.0131
+rs9665567_T  0.3820250            0 6.477949e-06 6.474288e-06  552.7773
+rs11255914_G 0.3820245            0 6.537510e-06 6.533823e-06  552.5458
+rs10795678_T 0.3821332            0 6.370477e-06 6.366862e-06  553.2126
+rs2027105_T  0.3820411            0 6.512476e-06 6.508800e-06  552.7926
+rs10905464_A 0.3820435            0 6.505651e-06 6.501978e-06  552.8488
+rs1556593_A  0.3820064            0 6.505568e-06 6.501895e-06  552.9813
+rs7902526_G  0.3821339            0 7.090815e-06 7.086899e-06  550.8873
+rs2986300_T  0.3821073            0 7.131334e-06 7.127400e-06  550.7870
+rs169693_T   0.3818606            0 7.205248e-06 7.201278e-06  549.9620
+rs401305_G   0.3820712            0 6.958835e-06 6.954971e-06  551.3828
+rs290356_G   0.3820713            0 7.061460e-06 7.057554e-06  550.9938
+rs2483937_G  0.3816637            0 7.836184e-06 7.831953e-06  547.9434
+rs2483936_A  0.3816479            0 7.570474e-06 7.566350e-06  548.8293
+rs2244336_C  0.3816293            0 7.777904e-06 7.773695e-06  547.9782
+rs7068268_T  0.3826083            0 8.222822e-06 8.218454e-06  545.9362
+rs12769121_G 0.3825829            0 7.481953e-06 7.477879e-06  548.2823
+rs2025758_C  0.4570126            0 5.477560e-14 5.455417e-14 -941.3337
+rs11255938_T 0.4549757            0 8.176240e-14 8.143698e-14 -934.2983
+                  Var         z            
+rs11255890_A 14830.47  4.624933 0.004672291
+rs11255891_C 14840.33  4.636919 0.004893552
+rs7923068_A  14762.13  4.519067 0.002786895
+rs7087891_T  14946.20  4.511498 0.002822863
+rs7079263_T  14953.81  4.465623 0.002268905
+rs7090156_A  14975.39  4.463624 0.002266996
+rs10795674_T 14974.15  4.468750 0.002303589
+rs4749820_A  14989.45  4.480031 0.002472998
+rs10795677_C 15002.71  4.487607 0.002536395
+rs3928823_A  15002.33  4.533494 0.003021933
+rs11255912_A 15005.70  4.561875 0.003468309
+rs9665552_C  15017.61  4.512685 0.002831367
+rs9665567_T  15020.83  4.510278 0.002844658
+rs11255914_G 15021.18  4.508335 0.002815488
+rs10795678_T 15020.85  4.513825 0.002890039
+rs2027105_T  15029.17  4.509150 0.002827371
+rs10905464_A 15030.75  4.509372 0.002830226
+rs1556593_A  15037.94  4.509375 0.002812388
+rs7902526_G  15046.22  4.491062 0.002608556
+rs2986300_T  15048.88  4.489848 0.002283002
+rs169693_T   15018.52  4.487651 0.002319646
+rs401305_G   15046.49  4.495062 0.002340193
+rs290356_G   15046.12  4.491945 0.002306369
+rs2483937_G  15028.28  4.469727 0.002215504
+rs2483936_A  15027.30  4.477101 0.002294813
+rs2244336_C  15019.46  4.471324 0.002235058
+rs7068268_T  14987.47  4.459413 0.002217577
+rs12769121_G 14980.54  4.479612 0.002437201
+rs2025758_C  15667.16 -7.520531 0.525384811
+rs11255938_T 15651.83 -7.467977 0.357436300</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps3, ], pip[sort(cs$cs$L3)])</code></pre>
+<pre><code>                    MAF missing.rate  p.value.spa p.value.norm      Stat
+rs186856025_T 0.1076229            0 6.037658e-25 2.694409e-25 -809.3564
+rs144536148_G 0.1076069            0 7.225399e-25 3.244956e-25 -807.9486
+rs12413578_T  0.1040860            0 4.269344e-26 1.669032e-26 -819.0107
+                   Var         z          
+rs186856025_T 6065.624 -10.39207 0.1934556
+rs144536148_G 6065.237 -10.37433 0.1697711
+rs12413578_T  5909.462 -10.65407 0.6370307</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps5, ], pip[sort(cs$cs$L5)])</code></pre>
+<pre><code>                    MAF missing.rate  p.value.spa p.value.norm      Stat
+rs72782675_T 0.01139900            0 6.101269e-11 3.132679e-11 -174.1911
+rs11256010_C 0.01180942            0 1.709305e-10 9.657797e-11 -172.0632
+                  Var         z          
+rs72782675_T 688.1613 -6.640195 0.7544745
+rs11256010_C 706.7571 -6.472213 0.2456690</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps6, ], pip[sort(cs$cs$L6)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm     Stat      Var
+rs10905360_T 0.4582294            0 3.372720e-08 3.369323e-08 693.0571 15757.63
+rs1361152_T  0.4555337            0 8.386657e-08 8.379190e-08 672.4307 15745.82
+rs10905361_T 0.4555329            0 8.692650e-08 8.684954e-08 671.9820 15762.92
+rs11255685_G 0.3091178            0 4.595135e-07 4.586948e-07 587.9150 13591.90
+rs11255686_C 0.4561533            0 7.598315e-08 7.591467e-08 675.0231 15762.51
+rs11255687_T 0.3094110            0 5.264154e-07 5.255075e-07 584.6758 13582.64
+rs2388715_A  0.4032956            0 5.973238e-08 5.965609e-08 669.8155 15273.52
+rs1572597_G  0.4048370            0 1.092954e-07 1.091706e-07 656.0356 15259.55
+rs10905362_C 0.4035023            0 7.419131e-08 7.410009e-08 665.3488 15289.15
+rs10905363_A 0.4010923            0 1.555422e-07 1.553714e-07 647.9115 15253.23
+rs10905364_G 0.4035100            0 7.532316e-08 7.523077e-08 665.0269 15289.85
+rs10905365_G 0.4035108            0 7.591432e-08 7.582135e-08 664.8256 15288.60
+rs7082651_C  0.4035309            0 7.047604e-08 7.038864e-08 666.4066 15285.25
+rs7082798_C  0.4035165            0 7.282078e-08 7.273095e-08 665.6286 15282.94
+rs7082816_A  0.4035296            0 7.438961e-08 7.429818e-08 665.1285 15281.76
+rs7082946_C  0.3951242            0 6.739997e-08 6.731047e-08 663.2095 15093.94
+rs1338057_A  0.4035502            0 8.414118e-08 8.403993e-08 661.7569 15252.95
+rs1338058_C  0.4035186            0 7.989791e-08 7.980089e-08 662.8972 15252.31
+rs6602301_T  0.4033038            0 8.010373e-08 8.000636e-08 662.5799 15240.34
+rs7084475_G  0.4031563            0 9.161644e-08 9.150748e-08 659.4124 15232.52
+rs7088182_A  0.4032129            0 7.052657e-08 7.043891e-08 665.1473 15228.27
+rs7100949_T  0.4033142            0 8.016838e-08 8.007094e-08 662.3217 15229.30
+rs7100961_T  0.3110061            0 5.035850e-07 5.027192e-07 585.0123 13552.23
+                    z           
+rs10905360_T 5.521075 0.04873610
+rs1361152_T  5.358767 0.01936750
+rs10905361_T 5.352287 0.01861149
+rs11255685_G 5.042831 0.01173543
+rs11255686_C 5.376578 0.02099712
+rs11255687_T 5.016758 0.01037761
+rs2388715_A  5.419829 0.06572784
+rs1572597_G  5.310757 0.03829371
+rs10905362_C 5.380935 0.05444661
+rs10905363_A 5.246078 0.02494528
+rs10905364_G 5.378208 0.05371247
+rs10905365_G 5.376800 0.05328616
+rs7082651_C  5.390176 0.05716896
+rs7082798_C  5.384291 0.05530267
+rs7082816_A  5.380454 0.05430836
+rs7082946_C  5.398206 0.06285292
+rs1338057_A  5.358233 0.04768706
+rs1338058_C  5.367578 0.05006357
+rs6602301_T  5.367114 0.05064724
+rs7084475_G  5.342828 0.04489357
+rs7088182_A  5.390048 0.05739413
+rs7100949_T  5.366969 0.05050511
+rs7100961_T  5.025272 0.01129927</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps7, ], pip[sort(cs$cs$L7)])</code></pre>
+<pre><code>                    MAF missing.rate  p.value.spa p.value.norm     Stat
+rs11256016_A 0.05104932            0 7.631291e-19 3.347436e-19 487.8163
+rs17406680_C 0.05256578            0 2.022166e-16 1.177382e-16 466.0854
+                  Var        z          
+rs11256016_A 2966.354 8.956633 0.8606128
+rs17406680_C 3164.512 8.285374 0.1198051</code></pre>
+<pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+<div id="coa-3" class="section level4">
+<h4>2. COA</h4>
+<pre class="r"><code>region = &quot;chr10_6600001_12200000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L3
+[1] 2435 2440 2453
+
+$cs$L1
+ [1] 2441 2451 2456 2463 2464 2468 2492 2495 2496 2499 2503 2505 2506 2508 2510
+[16] 2511
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L3    0.9795657     0.9863213       0.9797085
+L1    0.7377178     0.9345094       0.9879257
+
+$cs_index
+[1] 3 1
+
+$coverage
+[1] 0.9503942 0.9510038
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)
+snps3 = colnames(X)[cs$cs$L3]
+colors &lt;- ifelse(rownames(gwas) %in% snps3, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 3&quot;)</code></pre>
+<p><img src="figure/susie_asthma_result1.Rmd/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm     Stat      Var
+rs11256017_C 0.1837118            0 1.053318e-13 7.690263e-14 365.5747 2391.498
+rs2589561_G  0.1872850            0 7.054922e-14 5.138640e-14 371.0499 2429.211
+rs2440781_G  0.1873717            0 1.418919e-13 1.055768e-13 366.9615 2436.842
+rs1775550_A  0.1873137            0 1.091430e-13 8.057847e-14 368.8975 2439.177
+rs1775551_A  0.1873124            0 1.101068e-13 8.131135e-14 368.8524 2439.358
+rs2797288_A  0.1873133            0 1.099283e-13 8.117563e-14 368.8745 2439.507
+rs957349_A   0.1881942            0 5.070604e-14 3.664190e-14 375.2046 2455.107
+rs2589559_T  0.1883260            0 9.656862e-14 7.120593e-14 371.2176 2459.239
+rs6602349_C  0.1878566            0 1.483481e-13 1.106448e-13 367.8782 2453.123
+rs2589563_T  0.1878786            0 1.626690e-13 1.216697e-13 367.1926 2452.287
+rs725861_G   0.1881653            0 5.614297e-14 4.070136e-14 373.7336 2444.704
+rs1444788_C  0.1879988            0 4.179163e-14 3.000021e-14 375.3407 2440.149
+rs1444789_C  0.1870411            0 5.549340e-14 4.008932e-14 371.7285 2417.281
+rs1612986_C  0.1861778            0 2.059662e-13 1.543271e-13 361.6793 2399.592
+rs1342773_A  0.2601550            0 8.829267e-10 8.375701e-10 339.6538 3062.460
+rs1663693_C  0.2586433            0 2.103092e-09 2.007103e-09 331.5144 3055.648
+                    z           
+rs11256017_C 7.475514 0.01866303
+rs2589561_G  7.528348 0.04360345
+rs2440781_G  7.433731 0.02546739
+rs1775550_A  7.469372 0.03134852
+rs1775551_A  7.468180 0.03114277
+rs2797288_A  7.468400 0.03118268
+rs957349_A   7.572390 0.05617388
+rs2589559_T  7.485628 0.03346991
+rs6602349_C  7.427529 0.02422673
+rs2589563_T  7.414951 0.02246583
+rs725861_G   7.558733 0.05118060
+rs1444788_C  7.598319 0.06458213
+rs1444789_C  7.560704 0.05158561
+rs1612986_C  7.383375 0.02152232
+rs1342773_A  6.137639 0.31484788
+rs1663693_C  5.997231 0.14023622</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps3, ], pip[sort(cs$cs$L3)])</code></pre>
+<pre><code>                    MAF missing.rate  p.value.spa p.value.norm      Stat
+rs186856025_T 0.1078996            0 1.348827e-10 1.012989e-10 -253.0634
+rs144536148_G 0.1078832            0 1.453655e-10 1.094788e-10 -252.5957
+rs12413578_T  0.1043563            0 3.721099e-11 2.614579e-11 -257.5814
+                   Var         z          
+rs186856025_T 1532.222 -6.465000 0.2596517
+rs144536148_G 1532.129 -6.453247 0.2416930
+rs12413578_T  1492.778 -6.666790 0.5000388</code></pre>
+<pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+<div id="aoa-3" class="section level4">
+<h4>3. AOA</h4>
+<pre class="r"><code>region = &quot;chr10_6600001_12200000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+ [1] 2434 2465 2467 2472 2473 2475 2477 2482 2483 2487 2501
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1    0.9793508     0.9954759        0.998709
+
+$cs_index
+[1] 1
+
+$coverage
+[1] 0.9999378
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)</code></pre>
+<p><img src="figure/susie_asthma_result1.Rmd/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
+rs61840192_A 0.4326324            0 1.430427e-17 1.398486e-17 -807.2539
+rs962992_C   0.4247181            0 3.369056e-17 3.292047e-17 -802.2441
+rs962993_T   0.4246893            0 3.309988e-17 3.234219e-17 -802.4573
+rs1775553_T  0.4244705            0 3.322487e-17 3.246321e-17 -802.4365
+rs1775554_C  0.4245711            0 2.879613e-17 2.813033e-17 -804.0078
+rs1775555_C  0.4248292            0 4.624008e-17 4.520674e-17 -798.9812
+rs1663687_A  0.4244477            0 5.136474e-17 5.022077e-17 -797.7244
+rs1663680_C  0.4247732            0 3.977349e-17 3.887450e-17 -801.1533
+rs1031163_T  0.4244853            0 5.527005e-17 5.404475e-17 -797.3789
+rs1444782_A  0.4247341            0 5.303978e-17 5.186418e-17 -798.1299
+rs2197415_G  0.4240186            0 3.115001e-17 3.042797e-17 -802.3379
+                  Var         z           
+rs61840192_A 8945.147 -8.535253 0.15296259
+rs962992_C   9044.196 -8.435708 0.09475255
+rs962993_T   9044.562 -8.437780 0.09638994
+rs1775553_T  9045.029 -8.437343 0.09528988
+rs1775554_C  9044.573 -8.454077 0.10970193
+rs1775555_C  9050.354 -8.398539 0.06943893
+rs1663687_A  9048.524 -8.386177 0.06336783
+rs1663680_C  9061.384 -8.416245 0.08166521
+rs1031163_T  9059.334 -8.377541 0.05926589
+rs1444782_A  9065.912 -8.382389 0.06152557
+rs2197415_G  9026.608 -8.444910 0.12070713</code></pre>
+<pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+</div>
+<div id="region-5" class="section level3">
+<h3>Region 5</h3>
+<p>COA: pval = 1e-40, AOA no significant signals.</p>
+<div id="all-asthma-cases-4" class="section level4">
+<h4>1. All asthma cases</h4>
+<pre class="r"><code>region = &quot;chr1_150600001_155100000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+print(res[[3]])</code></pre>
+<pre><code>     user    system   elapsed 
+184006.62  58608.10  26540.03 </code></pre>
+<pre class="r"><code>pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+pip.sorted[1:10]</code></pre>
+<pre><code> [1] 0.99999963 0.99948127 0.07271724 0.02383702 0.01798914 0.01246631
+ [7] 0.01168878 0.01120367 0.01083357 0.01072128</code></pre>
+<pre class="r"><code>class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 1501
+
+$cs$L2
+[1] 1951
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1            1             1               1
+L2            1             1               1
+
+$cs_index
+[1] 1 2
+
+$coverage
+[1] 0.9994803 0.9999996
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)
+
+snps2 = colnames(X)[cs$cs$L2]
+colors &lt;- ifelse(rownames(gwas) %in% snps2, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 2&quot;)</code></pre>
+<p><img src="figure/susie_asthma_result1.Rmd/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                     [,1]      [,2]
+MAF          4.788278e-02 0.9994813
+missing.rate 0.000000e+00 0.9994813
+p.value.spa  4.503327e-19 0.9994813
+p.value.norm 1.822049e-19 0.9994813
+Stat         4.864129e+02 0.9994813
+Var          2.905775e+03 0.9994813
+z            9.023481e+00 0.9994813</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])</code></pre>
+<pre><code>                     [,1]      [,2]
+MAF          2.309783e-02 0.9999996
+missing.rate 0.000000e+00 0.9999996
+p.value.spa  8.920365e-16 0.9999996
+p.value.norm 3.297129e-16 0.9999996
+Stat         2.918389e+02 0.9999996
+Var          1.278500e+03 0.9999996
+z            8.161930e+00 0.9999996</code></pre>
+<pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+<div id="coa-4" class="section level4">
+<h4>2. COA</h4>
+<pre class="r"><code>region = &quot;chr1_150600001_155100000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+$cs$L1
+[1] 1951
+
+$cs$L2
+[1] 1501
+
+
+$purity
+   min.abs.corr mean.abs.corr median.abs.corr
+L1            1             1               1
+L2            1             1               1
+
+$cs_index
+[1] 1 2
+
+$coverage
+[1] 1.0000000 0.9751952
+
+$requested_coverage
+[1] 0.95</code></pre>
+<pre class="r"><code>par(mfrow = c(1,2))
+snps1 = colnames(X)[cs$cs$L1]
+colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)
+snps2 = colnames(X)[cs$cs$L2]
+colors &lt;- ifelse(rownames(gwas) %in% snps2, &quot;red&quot;, &quot;black&quot;)
+plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 2&quot;)</code></pre>
+<p><img src="figure/susie_asthma_result1.Rmd/unnamed-chunk-59-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
+<pre><code>                     [,1] [,2]
+MAF          2.310334e-02    1
+missing.rate 0.000000e+00    1
+p.value.spa  3.660474e-46    1
+p.value.norm 1.173288e-55    1
+Stat         2.820831e+02    1
+Var          3.221547e+02    1
+z            1.571610e+01    1</code></pre>
+<pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])</code></pre>
+<pre><code>                     [,1]      [,2]
+MAF          4.777014e-02 0.9752416
+missing.rate 0.000000e+00 0.9752416
+p.value.spa  1.618538e-33 0.9752416
+p.value.norm 2.895329e-37 0.9752416
+Stat         3.448891e+02 0.9752416
+Var          7.310485e+02 0.9752416
+z            1.275576e+01 0.9752416</code></pre>
+<pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
+</div>
+<div id="aoa-4" class="section level4">
+<h4>3. AOA</h4>
+<pre class="r"><code>region = &quot;chr1_150600001_155100000&quot;
+res = readRDS(paste0(&quot;/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_&quot;, region, &quot;.rds&quot;))</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+pip &lt;- logisticsusie:::get_pip(fit$alpha)
+effect_estimate &lt;- colSums(fit$alpha * fit$mu)
+pip.sorted = sort(pip, decreasing = TRUE)
+
+class(fit) = &quot;susie&quot;
+cs &lt;- susie_get_cs(fit, X)
+cs</code></pre>
+<pre><code>$cs
+NULL
+
+$coverage
+NULL
+
+$requested_coverage
+[1] 0.95</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

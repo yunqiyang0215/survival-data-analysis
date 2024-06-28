@@ -167,6 +167,20 @@ cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
 ```
 
+
+#### 2. Conditional analysis
+
+```{r}
+gwas1 = readRDS("/Users/nicholeyang/downloads/survivalsusie/result/asthma_self_report/result/gwas_surv_conditional/all_gwas_chr2_102100001_105300000_rs72823641_A.rds")
+```
+
+```{r}
+snps2 = colnames(X)[cs$cs$L2]
+colors <- ifelse(rownames(gwas1) %in% snps2, "red", "black")
+plot(-log10(gwas1[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
+```
+
+
 ```{r}
 rm(res, gwas, X, fit)
 ```
@@ -389,6 +403,17 @@ plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p
 print(snps1)
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
+```
+
+#### 2. Conditional analysis
+```{r}
+gwas1 <- readRDS("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/gwas_surv_conditional/all_gwas_chr6_30500001_32100000_rs2428494_A.rds")
+```
+
+```{r}
+snps2 = colnames(X)[cs$cs$L2]
+colors <- ifelse(rownames(gwas1) %in% snps2, "red", "black")
+plot(-log10(gwas1[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = "CS 2")
 ```
 
 ```{r}

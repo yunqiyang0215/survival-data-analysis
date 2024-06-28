@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-06-25
+<strong>Last updated:</strong> 2024-06-28
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreebce6d666cd6300e62043b196c8f241e20aec32ebtargetblankbce6d66a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree00fbcd90084f8b7c50669fcfd49ad8e966d4dbe0targetblank00fbcd9a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/bce6d666cd6300e62043b196c8f241e20aec32eb" target="_blank">bce6d66</a>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/00fbcd90084f8b7c50669fcfd49ad8e966d4dbe0" target="_blank">00fbcd9</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreebce6d666cd6300e62043b196c8f241e20aec32ebtargetblankbce6d66a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree00fbcd90084f8b7c50669fcfd49ad8e966d4dbe0targetblank00fbcd9a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/bce6d666cd6300e62043b196c8f241e20aec32eb" target="_blank">bce6d66</a>.
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/00fbcd90084f8b7c50669fcfd49ad8e966d4dbe0" target="_blank">00fbcd9</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,6 +555,7 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
 
 </code></pre>
@@ -601,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/00fbcd90084f8b7c50669fcfd49ad8e966d4dbe0/analysis/plot_km.Rmd" target="_blank">00fbcd9</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-06-28
+</td>
+<td>
+wflow_publish("analysis/plot_km.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/2500dc617ec1b51b285dca2aeb11450073ad27c7/docs/plot_km.html" target="_blank">2500dc6</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-06-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1040,6 +1075,85 @@ yunqi yang
 </table>
 </div>
 </div>
+</div>
+<div
+id="region-chr6_30500001_32100000-both-very-significant-signals-for-aoa-and-coa-pval-1e-20."
+class="section level3">
+<h3>4. Region chr6_30500001_32100000: Both very significant signals for
+AOA and COA, pval = 1e-20.</h3>
+<p>A shared signal at rs2428494_A.</p>
+<pre class="r"><code>region = &quot;chr6_30500001_32100000&quot;
+res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
+pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+effect_estimate &lt;- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c(&quot;SNP&quot;, &quot;effect&quot;)
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
+<pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]</code></pre>
+<pre><code>            SNP       effect        MAF missing.rate  p.value.spa p.value.norm
+1   rs2428494_A  0.114184536 0.47708452            0 2.359694e-51 2.196762e-51
+2   rs9468965_A -0.039160929 0.07710370            0 1.821596e-13 1.512565e-13
+3   rs4713451_C -0.031857500 0.08872864            0 3.316825e-13 2.852047e-13
+4 rs114444221_G -0.005150370 0.06422248            0 2.759637e-12 2.328671e-12
+5  rs56371837_G  0.004331622 0.04397674            0 2.200153e-01 2.200153e-01
+6 rs112794500_C  0.003789191 0.04435509            0 2.213493e-01 2.213493e-01
+        Stat       Var         z
+1 1894.94394 15790.544 15.079877
+2 -457.44138  3835.717 -7.386049
+3 -522.96946  5130.548 -7.301204
+4 -375.73468  2870.289 -7.013237
+5   63.11993  2648.542  1.226487
+6   63.39877  2687.483  1.222948</code></pre>
+<pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
+<pre class="r"><code>snp_list = res.sorted$SNP[1:6]
+plots = list()
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1083,7 +1197,7 @@ loaded via a namespace (and not attached):
 [33] pkgconfig_2.0.3    htmltools_0.5.2    sessioninfo_1.2.2  highr_0.9         
 [37] fastmap_1.1.0      rlang_1.1.3        rstudioapi_0.13    jquerylib_0.1.4   
 [41] generics_0.1.2     farver_2.1.0       zoo_1.8-10         jsonlite_1.8.0    
-[45] car_3.1-1          magrittr_2.0.3     Matrix_1.5-3       Rcpp_1.0.8.3      
+[45] car_3.1-1          magrittr_2.0.3     Matrix_1.5-3       Rcpp_1.0.12       
 [49] munsell_0.5.0      fansi_1.0.3        abind_1.4-5        lifecycle_1.0.4   
 [53] stringi_1.7.6      whisker_0.4        yaml_2.3.5         carData_3.0-5     
 [57] brio_1.1.3         pkgbuild_1.3.1     plyr_1.8.7         grid_4.2.0        

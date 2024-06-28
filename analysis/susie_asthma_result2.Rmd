@@ -386,6 +386,7 @@ plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p
 ```
 
 ```{r}
+print(snps1)
 cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])
 cbind(gwas[rownames(gwas) %in% snps2, ], pip[sort(cs$cs$L2)])
 ```

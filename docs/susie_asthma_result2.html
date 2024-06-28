@@ -475,16 +475,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreeca1554fc022283dbba00df6c57d002068801a75ftargetblankca1554fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/ca1554fc022283dbba00df6c57d002068801a75f" target="_blank">ca1554f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreee5d84dd7238d4a04ec4d4133ce12fc5f76e152f1targetblanke5d84dda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1" target="_blank">e5d84dd</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreeca1554fc022283dbba00df6c57d002068801a75ftargetblankca1554fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreee5d84dd7238d4a04ec4d4133ce12fc5f76e152f1targetblanke5d84dda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/ca1554fc022283dbba00df6c57d002068801a75f" target="_blank">ca1554f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1" target="_blank">e5d84dd</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -497,7 +497,9 @@ Ignored files:
 
 Unstaged changes:
     Deleted:    analysis/logistic_gwas_asthma.Rmd
+    Modified:   analysis/plot_km.Rmd
     Deleted:    analysis/susie_asthma_result.Rmd
+    Modified:   analysis/susie_asthma_result1.Rmd
 
 </code></pre>
 <p>
@@ -536,6 +538,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/susie_asthma_result2.html" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1325,6 +1344,43 @@ rs1997466_G   15884.16 -1.951641 0.012393843</code></pre>
 colors &lt;- ifelse(rownames(gwas1) %in% snps2, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas1[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 2&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-20-1">
+Past versions of unnamed-chunk-20-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-20-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-20-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>rm(res, gwas, X, fit)</code></pre>
 </div>
 <div id="coa-1" class="section level4">
@@ -1363,6 +1419,43 @@ $requested_coverage
 colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.5, pch = 20, main = &quot;CS 1&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-24-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
 <pre><code>                    MAF missing.rate  p.value.spa p.value.norm      Stat
 rs72823635_C  0.1384102            0 3.640657e-36 3.586463e-38 -565.3715
@@ -1449,6 +1542,43 @@ $requested_coverage
 colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 1&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-29-1">
+Past versions of unnamed-chunk-29-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-29-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-29-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
 <pre><code>                   MAF missing.rate  p.value.spa p.value.norm     Stat      Var
 rs12470864_A 0.3863606            0 3.271588e-13 3.219111e-13 682.5887 8779.527
@@ -1525,6 +1655,43 @@ $requested_coverage
 colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 1&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-34-1">
+Past versions of unnamed-chunk-34-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-34-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-34-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
 <pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
 rs961414_T   0.4668426            0 1.181296e-05 1.180891e-05 -550.9762
@@ -1656,6 +1823,43 @@ $requested_coverage
 colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 1&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-42-1">
+Past versions of unnamed-chunk-42-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-42-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-42-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
 <pre><code>                   MAF missing.rate  p.value.spa p.value.norm      Stat
 rs961414_T   0.4667480            0 3.587785e-09 3.575483e-09 -567.2621
@@ -1778,6 +1982,43 @@ snps2 = colnames(X)[cs$cs$L2]
 colors &lt;- ifelse(rownames(gwas) %in% snps2, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 2&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-47-1">
+Past versions of unnamed-chunk-47-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-47-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-47-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>print(snps1)</code></pre>
 <pre><code>[1] &quot;rs2428494_A&quot;</code></pre>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
@@ -1834,6 +2075,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-50-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/b7003474a5621d0b2505affe593782361b83f730/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-50-1.png" target="_blank">b700347</a>
@@ -1910,6 +2162,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-54-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/b7003474a5621d0b2505affe593782361b83f730/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-54-1.png" target="_blank">b700347</a>
 </td>
 <td>
@@ -1969,6 +2232,43 @@ $requested_coverage
 colors &lt;- ifelse(rownames(gwas) %in% snps1, &quot;red&quot;, &quot;black&quot;)
 plot(-log10(gwas[, &quot;p.value.spa&quot;]), col = colors, xlab = &quot;SNP&quot;, ylab = &quot;-log10(p-value)&quot;, cex = 0.8, pch = 20, main = &quot;CS 1&quot;)</code></pre>
 <p><img src="figure/susie_asthma_result2.Rmd/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-58-1">
+Past versions of unnamed-chunk-58-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-58-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/e5d84dd7238d4a04ec4d4133ce12fc5f76e152f1/docs/figure/susie_asthma_result2.Rmd/unnamed-chunk-58-1.png" target="_blank">e5d84dd</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-06-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>cbind(gwas[rownames(gwas) %in% snps1, ], pip[sort(cs$cs$L1)])</code></pre>
 <pre><code>                     [,1]      [,2]
 MAF          4.753661e-01 0.9999593

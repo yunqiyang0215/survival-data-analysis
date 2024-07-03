@@ -18,6 +18,8 @@ UKB self-report asthma:
 
 + [gwas results](gwas_asthma.html)
 
++ [gwas top signal summary](gwas_pval_summary.html)
+
 + [Kaplan Meier plots](plot_km.html)
 
 + [cut region for finemapping](region_cut.html)

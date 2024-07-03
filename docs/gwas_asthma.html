@@ -366,7 +366,7 @@ div.tocify {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -375,7 +375,7 @@ div.tocify {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -387,7 +387,7 @@ div.tocify {
 <strong>Last updated:</strong> 2024-07-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>survival-data-analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -463,28 +463,52 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongabsolute"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>File paths:</strong> absolute </a>
 </p>
 </div>
-<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div id="strongFilepathsstrongabsolute" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+<p>
+Using absolute paths to the files within your workflowr project makes it difficult for you and others to run your code on a different machine. Change the absolute path(s) below to the suggested relative path(s) to make your code more reproducible.
+</p>
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th style="text-align:left;">
+absolute
+</th>
+<th style="text-align:left;">
+relative
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+/Users/nicholeyang/Downloads/survival-data-analysis/output/Fig_gwas_coa_aoa.pdf
+</td>
+<td style="text-align:left;">
+output/Fig_gwas_coa_aoa.pdf
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreee93f1a6899b7c8bb9f6c2e4d3d9da0bddac24e23targetblanke93f1a6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/e93f1a6899b7c8bb9f6c2e4d3d9da0bddac24e23" target="_blank">e93f1a6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreeea763434f1c3c74fb43e69512b2f962cb9de2b35targetblankea76343a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/ea763434f1c3c74fb43e69512b2f962cb9de2b35" target="_blank">ea76343</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreee93f1a6899b7c8bb9f6c2e4d3d9da0bddac24e23targetblanke93f1a6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistreeea763434f1c3c74fb43e69512b2f962cb9de2b35targetblankea76343a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/e93f1a6899b7c8bb9f6c2e4d3d9da0bddac24e23" target="_blank">e93f1a6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/ea763434f1c3c74fb43e69512b2f962cb9de2b35" target="_blank">ea76343</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -494,7 +518,12 @@ Ignored files:
     Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
+
+Untracked files:
+    Untracked:  output/Fig_gwas_coa_aoa.pdf
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -533,6 +562,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/ea763434f1c3c74fb43e69512b2f962cb9de2b35/analysis/gwas_asthma.Rmd" target="_blank">ea76343</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-03
+</td>
+<td>
+wflow_publish("analysis/gwas_asthma.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/d61db5c9adeb990bc481346022e378cad3223457/docs/gwas_asthma.html" target="_blank">d61db5c</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -964,6 +1027,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/d61db5c9adeb990bc481346022e378cad3223457/docs/figure/gwas_asthma.Rmd/unnamed-chunk-6-1.png" target="_blank">d61db5c</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/7c1eda43054c992b1ba223f994597fd7e5e2efe1/docs/figure/gwas_asthma.Rmd/unnamed-chunk-6-1.png" target="_blank">7c1eda4</a>
 </td>
 <td>
@@ -1048,6 +1122,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/d61db5c9adeb990bc481346022e378cad3223457/docs/figure/gwas_asthma.Rmd/unnamed-chunk-7-1.png" target="_blank">d61db5c</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/7c1eda43054c992b1ba223f994597fd7e5e2efe1/docs/figure/gwas_asthma.Rmd/unnamed-chunk-7-1.png" target="_blank">7c1eda4</a>
 </td>
 <td>
@@ -1094,6 +1179,24 @@ yunqiyang0215
 </table>
 </div>
 </div>
+<pre class="r"><code>pdf(&quot;/Users/nicholeyang/Downloads/survival-data-analysis/output/Fig_gwas_coa_aoa.pdf&quot;, width = 10, height = 8)
+par(mfrow = c(2,2))
+indx = c(1, 2, 4, 9)
+labels = c(&quot;(a)&quot;, &quot;(b)&quot;, &quot;(c)&quot;, &quot;(d)&quot;) 
+for (i in 1:length(indx)){
+  region.aoa = file.aoa[indx[i]]
+  region.coa = file.coa[indx[i]]
+  region_name = str_extract(region.aoa, pattern)
+  gwas.aoa = readRDS(region.aoa)
+  gwas.coa = readRDS(region.coa)
+  ymin = min(log10(gwas.aoa[, &#39;p.value.spa&#39;]), na.rm = TRUE) - 1
+  ymax = max(-log10(gwas.coa[, &#39;p.value.spa&#39;]), na.rm = TRUE) + 2
+  plot(log10(gwas.aoa[, &#39;p.value.spa&#39;]), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = &quot;#2c7fb8&quot;, main = region_name, ylab = &quot;log10-pval&quot;, xlab = &quot;&quot;)
+  points(-log10(gwas.coa[, &#39;p.value.spa&#39;]), pch = 20, cex = 0.5, col = &quot;#de2d26&quot;)
+  legend(&quot;topright&quot;, legend = c(&quot;COA&quot;, &quot;AOA&quot;), col = c(&quot;#de2d26&quot;, &quot;#2c7fb8&quot;), pch = 20)
+  mtext(&quot;Position&quot;, side = 1, line = 3, adj = 0.5, cex = 0.8)
+  mtext(labels[i], side = 1, line = 4, adj = 0.5, cex = 1)
+}</code></pre>
 </div>
 <div id="compare-logistic-gwas-and-survival-gwas" class="section level3">
 <h3>3. Compare logistic gwas and survival gwas</h3>
@@ -1122,88 +1225,7 @@ for (i in 1:length(file.survival)){
   
   legend(&quot;topright&quot;, legend = c(&quot;logistic.gwas&quot;, &quot;survival.gwas&quot;), col = c(&quot;#de2d26&quot;, 1), pch = 20)
 }</code></pre>
-<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/7c1eda43054c992b1ba223f994597fd7e5e2efe1/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">7c1eda4</a>
-</td>
-<td>
-yunqiyang0215
-</td>
-<td>
-2024-06-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/1455c77adaddd0aa8f45c79e5535249c3e039637/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">1455c77</a>
-</td>
-<td>
-yunqiyang0215
-</td>
-<td>
-2024-06-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/4e9442a48da53bfa497605c831994d7942f67280/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">4e9442a</a>
-</td>
-<td>
-yunqiyang0215
-</td>
-<td>
-2024-06-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/8ea4062c4836c341e8cf2e47789fa4235c7b525c/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">8ea4062</a>
-</td>
-<td>
-yunqiyang0215
-</td>
-<td>
-2024-06-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/9919087bc53578d416965edf4853cac17ecf7b85/docs/figure/gwas_asthma.Rmd/unnamed-chunk-9-1.png" target="_blank">9919087</a>
-</td>
-<td>
-yunqiyang0215
-</td>
-<td>
-2024-06-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="compare-logistic-gwas-and-survival-gwas-on-coa" class="section level3">
 <h3>4. Compare logistic gwas and survival gwas on COA</h3>
@@ -1232,7 +1254,7 @@ for (i in 1:length(file.survival)){
   
   legend(&quot;topright&quot;, legend = c(&quot;logistic.gwas&quot;, &quot;survival.gwas&quot;), col = c(&quot;#de2d26&quot;, 1), pch = 20)
 }</code></pre>
-<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="compare-logistic-gwas-and-survival-gwas-on-aoa" class="section level3">
 <h3>5. Compare logistic gwas and survival gwas on AOA</h3>
@@ -1261,7 +1283,7 @@ for (i in 1:length(file.survival)){
   
   legend(&quot;topright&quot;, legend = c(&quot;logistic.gwas&quot;, &quot;survival.gwas&quot;), col = c(&quot;#de2d26&quot;, 1), pch = 20)
 }</code></pre>
-<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/gwas_asthma.Rmd/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

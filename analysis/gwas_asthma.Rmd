@@ -13,6 +13,10 @@ output: html_document
 
 3. Compare logistic and survival gwas on all asthma
 
+4. Compare logistic and survival gwas on COA
+
+5. Compare logistic and survival gwas on AOA
+
 ```{r}
 library(stringr)
 ```
@@ -146,6 +150,98 @@ for (i in 1:length(file.survival)){
 }
 
 ```
+
+
+
+
+
+
+
+
+
+
+### 4. Compare logistic gwas and survival gwas on COA
+
+```{r}
+file.logistic <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/coa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+file.survival <- list.files(path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv", pattern = "^coa.*\\.rds$", full.names = TRUE)
+```
+
+
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+for (i in 1:length(file.survival)){
+  region = file.survival[i]
+  region_name = str_extract(region, pattern)
+
+  path.logistic = paste0("/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/coa/gwas_", 
+                         region_name, ".asthma_coa.glm.logistic")
+  
+  # read in gwas results
+  gwas.logistic = read.csv(path.logistic, header = TRUE, sep = "\t")
+  gwas.survival = data.frame(readRDS(region))
+  
+  # merge two datasets
+  snp_ids = sapply(rownames(gwas.survival), function(x) unlist(strsplit(x, "_"))[1])
+  gwas.survival$ID = snp_ids
+  dat = merge(gwas.logistic, gwas.survival, by = "ID")
+  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position", ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa), na.rm = TRUE) + 1), col = "#de2d26")
+  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5)
+  
+  legend("topright", legend = c("logistic.gwas", "survival.gwas"), col = c("#de2d26", 1), pch = 20)
+}
+
+```
+
+### 5. Compare logistic gwas and survival gwas on AOA
+
+```{r}
+file.logistic <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/aoa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+file.survival <- list.files(path = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv", pattern = "^aoa.*\\.rds$", full.names = TRUE)
+```
+
+
+
+```{r fig.width=10, fig.height=20}
+
+par(mfrow = c(6,2))
+
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+for (i in 1:length(file.survival)){
+  region = file.survival[i]
+  region_name = str_extract(region, pattern)
+
+  path.logistic = paste0("/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/aoa/gwas_", 
+                         region_name, ".asthma_aoa.glm.logistic")
+  
+  # read in gwas results
+  gwas.logistic = read.csv(path.logistic, header = TRUE, sep = "\t")
+  gwas.survival = data.frame(readRDS(region))
+  
+  # merge two datasets
+  snp_ids = sapply(rownames(gwas.survival), function(x) unlist(strsplit(x, "_"))[1])
+  gwas.survival$ID = snp_ids
+  dat = merge(gwas.logistic, gwas.survival, by = "ID")
+  plot(dat$POS, -log10(dat$P), pch = 20, cex = 0.5, main = region_name, ylab = "log10-pval", xlab = "Position", ylim = c(0, max(-log10(dat$P), -log10(dat$p.value.spa), na.rm = TRUE) + 1), col = "#de2d26")
+  points(dat$POS, -log10(dat$p.value.spa), pch = 20, cex = 0.5)
+  
+  legend("topright", legend = c("logistic.gwas", "survival.gwas"), col = c("#de2d26", 1), pch = 20)
+}
+
+```
+
+
+
+
+
+
+
+
+
 
 
 

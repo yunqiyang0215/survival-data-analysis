@@ -1,0 +1,166 @@
+---
+title: "Top gwas signal summary"
+author: "Yunqi Yang"
+date: "7/3/2024"
+output: html_document
+---
+
+```{r}
+library(stringr)
+```
+
+```{r}
+logistic.aoa <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/aoa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+logistic.coa <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/coa", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+
+logistic <- list.files(path="/Users/nicholeyang/Downloads/survivalsusie/data/gwas_logistic_out/all", pattern = "\\.glm\\.logistic$", full.names = TRUE)
+```
+
+```{r}
+dir = "/Users/nicholeyang/Downloads/survivalsusie/result/gwas_surv"
+surv.aoa <- list.files(path = dir, pattern = "^aoa.*\\.rds$", full.names = TRUE)
+surv.coa <- list.files(path = dir, pattern = "^coa.*\\.rds$", full.names = TRUE)
+surv <- list.files(path = dir, pattern = "^all.*\\.rds$", full.names = TRUE)
+```
+
+### 1. Selection based on top logistic signal per region
+```{r}
+## All asthma
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.all = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.all) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic)){
+  path = logistic[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/all_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.logistic$P)
+  snp = gwas.logistic$ID[indx]
+  pval.all[i, ] = c(region, snp, -log10(gwas.logistic$P[indx]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r}
+## COA
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.coa = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.coa) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic.coa)){
+  path = logistic.coa[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/coa_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.logistic$P)
+  snp = gwas.logistic$ID[indx]
+  pval.coa[i, ] = c(region, snp, -log10(gwas.logistic$P[indx]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r}
+## AOA
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.aoa = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.aoa) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic.aoa)){
+  path = logistic.aoa[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/aoa_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.logistic$P)
+  snp = gwas.logistic$ID[indx]
+  pval.aoa[i, ] = c(region, snp, -log10(gwas.logistic$P[indx]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r fig.height = 5, fig.width=10}
+par(mfrow = c(1,3))
+plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+
+plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+
+plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+```
+
+
+### 2. Selection based on top coxph signal per region
+```{r}
+## All asthma
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.all = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.all) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic)){
+  path = logistic[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/all_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.surv$p.value.spa)
+  snp = gwas.surv$ID[indx]
+  pval.all[i, ] = c(region, snp, -log10(gwas.logistic$P[which(gwas.logistic$ID == snp)]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r}
+## COA
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.coa = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.coa) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic.coa)){
+  path = logistic.coa[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/coa_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.surv$p.value.spa)
+  snp = gwas.surv$ID[indx]
+  pval.coa[i, ] = c(region, snp, -log10(gwas.logistic$P[which(gwas.logistic$ID == snp)]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r}
+## AOA
+pattern <- "chr[0-9XYM]+_[0-9]+_[0-9]+"
+pval.aoa = data.frame(matrix(NA, nrow = length(logistic), ncol = 4))
+colnames(pval.aoa) = c("region", "snp", "logistic", "coxph")
+for (i in 1:length(logistic.aoa)){
+  path = logistic.aoa[i]
+  region = str_extract(path, pattern)
+  gwas.logistic = read.csv(path, header = TRUE, sep = "\t")
+  gwas.surv = readRDS(paste0(dir, "/aoa_gwas_", region, ".rds"))
+  gwas.surv = data.frame(gwas.surv)
+  gwas.surv$ID = sapply(1:nrow(gwas.surv), function(i) unlist(strsplit(rownames(gwas.surv)[i], "_"))[1])
+  indx = which.min(gwas.surv$p.value.spa)
+  snp = gwas.surv$ID[indx]
+  pval.aoa[i, ] = c(region, snp, -log10(gwas.logistic$P[which(gwas.logistic$ID == snp)]),
+                   -log10(gwas.surv$p.value.spa[which(gwas.surv$ID == snp)]))
+}
+```
+
+```{r fig.height = 5, fig.width=10}
+par(mfrow = c(1,3))
+plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+
+plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+
+plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+abline(a = 0, b = 1, col = "red")
+```
+

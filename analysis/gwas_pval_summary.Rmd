@@ -83,13 +83,13 @@ for (i in 1:length(logistic.aoa)){
 
 ```{r fig.height = 5, fig.width=10}
 par(mfrow = c(1,3))
-plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "All asthma")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "COA")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "AOA")
 abline(a = 0, b = 1, col = "red")
 ```
 
@@ -154,13 +154,13 @@ for (i in 1:length(logistic.aoa)){
 
 ```{r fig.height = 5, fig.width=10}
 par(mfrow = c(1,3))
-plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "All asthma")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "COA")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)")
+plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "AOA")
 abline(a = 0, b = 1, col = "red")
 ```
 

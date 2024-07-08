@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-01
+<strong>Last updated:</strong> 2024-07-08
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree1e1dddfa42cadd9aa543379411fd9174c7d6f502targetblank1e1dddfa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree196ae95c75497f7c8cf65a99b7aba64e6f680f8ctargetblank196ae95a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/1e1dddfa42cadd9aa543379411fd9174c7d6f502" target="_blank">1e1dddf</a>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/196ae95c75497f7c8cf65a99b7aba64e6f680f8c" target="_blank">196ae95</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree1e1dddfa42cadd9aa543379411fd9174c7d6f502targetblank1e1dddfa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree196ae95c75497f7c8cf65a99b7aba64e6f680f8ctargetblank196ae95a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/1e1dddfa42cadd9aa543379411fd9174c7d6f502" target="_blank">1e1dddf</a>.
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/196ae95c75497f7c8cf65a99b7aba64e6f680f8c" target="_blank">196ae95</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -557,8 +557,6 @@ were generated:
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
-    Ignored:    analysis/site_libs/
 
 </code></pre>
 <p>
@@ -604,6 +602,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/196ae95c75497f7c8cf65a99b7aba64e6f680f8c/analysis/plot_km.Rmd" target="_blank">196ae95</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-07-08
+</td>
+<td>
+wflow_publish("analysis/plot_km.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/6d69c4b32c190598cfbe3af2322ad8903df101e9/docs/plot_km.html" target="_blank">6d69c4b</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-07-01
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -990,10 +1022,126 @@ yunqi yang
 </div>
 </div>
 <div
-id="region-chr17_33500001_39800000-coa-pval-1e-80-very-week-signals-for-aoa."
+id="region-chr6_30500001_32100000-both-very-significant-signals-for-aoa-and-coa-pval-1e-20."
 class="section level3">
-<h3>3. Region chr17_33500001_39800000: COA pval = 1e-80, very week
-signals for AOA.</h3>
+<h3>3. Region chr6_30500001_32100000: Both very significant signals for
+AOA and COA, pval = 1e-20.</h3>
+<p>A shared signal at rs2428494_A.</p>
+<pre class="r"><code>region = &quot;chr6_30500001_32100000&quot;
+res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
+gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
+pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
+<pre class="r"><code>fit = res[[1]]
+X = res[[2]]
+
+effect_estimate &lt;- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c(&quot;SNP&quot;, &quot;effect&quot;)
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+
+gwas = data.frame(gwas)
+gwas$SNP = rownames(gwas)
+res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
+<pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
+res.sorted[1:6, ]</code></pre>
+<pre><code>            SNP       effect        MAF missing.rate  p.value.spa p.value.norm
+1   rs2428494_A  0.114184536 0.47708452            0 2.359694e-51 2.196762e-51
+2   rs9468965_A -0.039160929 0.07710370            0 1.821596e-13 1.512565e-13
+3   rs4713451_C -0.031857500 0.08872864            0 3.316825e-13 2.852047e-13
+4 rs114444221_G -0.005150370 0.06422248            0 2.759637e-12 2.328671e-12
+5  rs56371837_G  0.004331622 0.04397674            0 2.200153e-01 2.200153e-01
+6 rs112794500_C  0.003789191 0.04435509            0 2.213493e-01 2.213493e-01
+        Stat       Var         z
+1 1894.94394 15790.544 15.079877
+2 -457.44138  3835.717 -7.386049
+3 -522.96946  5130.548 -7.301204
+4 -375.73468  2870.289 -7.013237
+5   63.11993  2648.542  1.226487
+6   63.39877  2687.483  1.222948</code></pre>
+<pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
+<pre class="r"><code>snp_list = res.sorted$SNP[1:6]
+plots = list()
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(pheno$time, pheno$event)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
+Past versions of unnamed-chunk-16-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/83f40c7f4d33f5e04d9d686305253c5c67ad0e69/docs/figure/plot_km.Rmd/unnamed-chunk-16-1.png" target="_blank">83f40c7</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-06-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div
+id="coa-specific-region-chr17_33500001_39800000-coa-pval-1e-80-very-week-signals-for-aoa."
+class="section level3">
+<h3>4. COA specific region: chr17_33500001_39800000: COA pval = 1e-80,
+very week signals for AOA.</h3>
 <pre class="r"><code>region = &quot;chr17_33500001_39800000&quot;
 res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
 gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
@@ -1073,13 +1221,13 @@ grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
 (`geom_step()`).</code></pre>
 <pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
-<p><img src="figure/plot_km.Rmd/unnamed-chunk-16-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-21-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-21-1">
+Past versions of unnamed-chunk-21-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
+<div id="fig-unnamed-chunk-21-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -1098,13 +1246,24 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/83f40c7f4d33f5e04d9d686305253c5c67ad0e69/docs/figure/plot_km.Rmd/unnamed-chunk-16-1.png" target="_blank">83f40c7</a>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/6d69c4b32c190598cfbe3af2322ad8903df101e9/docs/figure/plot_km.Rmd/unnamed-chunk-21-1.png" target="_blank">6d69c4b</a>
 </td>
 <td>
 yunqi yang
 </td>
 <td>
-2024-06-24
+2024-07-01
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/b8b24e9c019ffec1d5a34dbb4c0860caa4314ae2/docs/figure/plot_km.Rmd/unnamed-chunk-21-1.png" target="_blank">b8b24e9</a>
+</td>
+<td>
+yunqi yang
+</td>
+<td>
+2024-06-28
 </td>
 </tr>
 </tbody>
@@ -1114,7 +1273,7 @@ yunqi yang
 </div>
 <div id="re-analyze-chr17_33500001_39800000-excluding-0-12-onset"
 class="section level3">
-<h3>3.1 Re-analyze chr17_33500001_39800000: excluding 0-12 onset</h3>
+<h3>4.1 Re-analyze chr17_33500001_39800000: excluding 0-12 onset</h3>
 <pre class="r"><code>indx.remove  = which(pheno$event == 1 &amp; pheno$time &lt;= 12)
 pheno.sub = pheno[-indx.remove, ]
 indx.censor = c(which(pheno.sub$event == 1 &amp; pheno.sub$time &gt; 20), which(pheno.sub$event == 0))
@@ -1161,16 +1320,15 @@ for (i in 1:length(snp_list)){
 }</code></pre>
 <pre class="r"><code># Arrange the plots in a grid layout
 grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
-<p><img src="figure/plot_km.Rmd/unnamed-chunk-19-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-24-1.png" width="768" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>rm(res)</code></pre>
 </div>
 <div
-id="region-chr6_30500001_32100000-both-very-significant-signals-for-aoa-and-coa-pval-1e-20."
+id="coa-specific-region-chr1_150600001_155100000-coa-pval-1e-40-very-week-signals-for-aoa."
 class="section level3">
-<h3>4. Region chr6_30500001_32100000: Both very significant signals for
-AOA and COA, pval = 1e-20.</h3>
-<p>A shared signal at rs2428494_A.</p>
-<pre class="r"><code>region = &quot;chr6_30500001_32100000&quot;
+<h3>5. COA specific region: chr1_150600001_155100000: COA pval = 1e-40,
+very week signals for AOA.</h3>
+<pre class="r"><code>region = &quot;chr1_150600001_155100000&quot;
 res = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.&quot;, region, &quot;.rds&quot;))
 gwas = readRDS(paste0(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_&quot;, region, &quot;.rds&quot;))
 pheno = readRDS(&quot;/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds&quot;)</code></pre>
@@ -1187,20 +1345,20 @@ gwas$SNP = rownames(gwas)
 res = merge(effect_estimate, gwas, by = &quot;SNP&quot;)</code></pre>
 <pre class="r"><code>res.sorted &lt;- res %&gt;% arrange(desc(abs(effect)), p.value.spa)
 res.sorted[1:6, ]</code></pre>
-<pre><code>            SNP       effect        MAF missing.rate  p.value.spa p.value.norm
-1   rs2428494_A  0.114184536 0.47708452            0 2.359694e-51 2.196762e-51
-2   rs9468965_A -0.039160929 0.07710370            0 1.821596e-13 1.512565e-13
-3   rs4713451_C -0.031857500 0.08872864            0 3.316825e-13 2.852047e-13
-4 rs114444221_G -0.005150370 0.06422248            0 2.759637e-12 2.328671e-12
-5  rs56371837_G  0.004331622 0.04397674            0 2.200153e-01 2.200153e-01
-6 rs112794500_C  0.003789191 0.04435509            0 2.213493e-01 2.213493e-01
-        Stat       Var         z
-1 1894.94394 15790.544 15.079877
-2 -457.44138  3835.717 -7.386049
-3 -522.96946  5130.548 -7.301204
-4 -375.73468  2870.289 -7.013237
-5   63.11993  2648.542  1.226487
-6   63.39877  2687.483  1.222948</code></pre>
+<pre><code>           SNP        effect        MAF missing.rate  p.value.spa p.value.norm
+1 rs61816761_A  0.2205542423 0.02309783            0 8.920365e-16 3.297129e-16
+2 rs12123821_T  0.1601572286 0.04788278            0 4.503327e-19 1.822049e-19
+3  rs4845604_A -0.0020315274 0.14754412            0 2.952423e-06 2.939222e-06
+4 rs11801866_A -0.0006059839 0.09656254            0 4.811081e-05 4.796345e-05
+5 rs11204896_G -0.0004257722 0.10019726            0 1.082255e-04 1.080039e-04
+6 rs45591937_T  0.0003062070 0.04145723            0 1.951666e-03 1.949969e-03
+       Stat      Var         z
+1  291.8389 1278.500  8.161930
+2  486.4129 2905.775  9.023481
+3 -411.3836 7743.310 -4.675022
+4 -298.0888 5376.486 -4.065335
+5 -291.5328 5669.355 -3.871869
+6  142.1214 2104.875  3.097748</code></pre>
 <pre class="r"><code>pheno &lt;- pheno[order(pheno$IID), ]</code></pre>
 <pre class="r"><code>snp_list = res.sorted$SNP[1:6]
 plots = list()
@@ -1241,7 +1399,63 @@ for (i in 1:length(snp_list)){
 }</code></pre>
 <pre class="r"><code># Arrange the plots in a grid layout
 grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
-<p><img src="figure/plot_km.Rmd/unnamed-chunk-25-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre><code>Warning: Removed 21 rows containing missing values or values outside the scale range
+(`geom_step()`).</code></pre>
+<pre><code>Warning: Removed 21 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-30-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="re-analyze-chr1_150600001_155100000-excluding-0-12-onset"
+class="section level3">
+<h3>5.1 Re-analyze chr1_150600001_155100000: excluding 0-12 onset</h3>
+<pre class="r"><code>indx.remove  = which(pheno$event == 1 &amp; pheno$time &lt;= 12)
+pheno.sub = pheno[-indx.remove, ]
+indx.censor = c(which(pheno.sub$event == 1 &amp; pheno.sub$time &gt; 20), which(pheno.sub$event == 0))
+pheno.sub$event[indx.censor] = 0
+pheno.sub$time[indx.censor] = 20
+sum(pheno.sub$event == 1)</code></pre>
+<pre><code>[1] 2710</code></pre>
+<pre class="r"><code>X.sub = X[-indx.remove, ]</code></pre>
+<pre class="r"><code>plots = list()
+for (i in 1:length(snp_list)){
+  indx = which(colnames(X.sub) == snp_list[i])
+  # round genotype to 0, 1, 2
+  geno &lt;- cut(X.sub[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+  geno &lt;- as.numeric(as.character(geno))
+
+  data &lt;- data.frame(time = pheno.sub$time, 
+                   status = pheno.sub$event, 
+                   geno = geno)
+  
+  # create survival pheno
+  y &lt;- Surv(data$time, data$status)
+  # fit model by different geno group
+  fit &lt;- survfit(y ~ data$geno)
+  
+  plots[[i]] &lt;- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.85, 1),
+           xlim = c(0, 20), 
+           pval.coord = c(10, 0.9),
+           xlab = &quot;Survival years&quot;,
+           ylab = &quot;Survival probability&quot;,
+           title = snp_list[i],  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )
+
+}</code></pre>
+<pre class="r"><code># Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)</code></pre>
+<p><img src="figure/plot_km.Rmd/unnamed-chunk-33-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>rm(res)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

@@ -38,25 +38,30 @@ for (i in 1:length(regions)){
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
-  for (i in 1:length(cs$cs)){
+  if (!is.null(cs$cs)){
+    for (i in 1:length(cs$cs)){
     size = length(cs$cs[[i]])
-    output = c(region, "AA", size, cs$purity[i, ])
+    output = c(region, "AA", size, as.numeric(cs$purity[i, ]))
     cs_summary = rbind(output, cs_summary) 
+    }
   }
   
   rm(res, fit, X)
+  
   # COA
   res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
-  
-  for (i in 1:length(cs$cs)){
+  if (!is.null(cs$cs)){
+    for (i in 1:length(cs$cs)){
     size = length(cs$cs[[i]])
-    output = c(region, "COA", size, cs$purity[i, ])
+    output = c(region, "COA", size, as.numeric(cs$purity[i, ]))
     cs_summary = rbind(output, cs_summary) 
+    }
   }
+  
   rm(res, fit, X)
   
   # AOA 
@@ -66,17 +71,33 @@ for (i in 1:length(regions)){
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  for (i in 1:length(cs$cs)){
+  if (!is.null(cs$cs)){
+    for (i in 1:length(cs$cs)){
     size = length(cs$cs[[i]])
-    output = c(region, "AOA", size, cs$purity[i, ])
+    output = c(region, "AOA", size, as.numeric(cs$purity[i, ]))
     cs_summary = rbind(output, cs_summary) 
+    }
   }
   rm(res, fit, X)
 }
 
 colnames(cs_summary) = c("region", "analysis", "size", "min.abs.corr", "mean.abs.corr", "median.abs.corr")
+```
+
+
+```{r}
+rownames(cs_summary) <- NULL
+cs_summary = data.frame(cs_summary)
+cs_summary$size = as.numeric(cs_summary$size)
+cs_summary$min.abs.corr = as.numeric(cs_summary$min.abs.corr)
+cs_summary$mean.abs.corr = as.numeric(cs_summary$mean.abs.corr)
+cs_summary$median.abs.corr = as.numeric(cs_summary$median.abs.corr)
+
+write.table(cs_summary, "/Users/nicholeyang/Downloads/survival-data-analysis/output/cs_summary.txt")
 
 ```
+
+
 
 ```{r fig.height = 16, fig.width = 10}
 pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/susie1.pdf", width = 10, height = 16)

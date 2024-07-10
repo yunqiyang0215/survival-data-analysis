@@ -113,13 +113,17 @@ for (i in 1:5){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
   
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"))
+  
   rm(gwas, res, X, fit)
   
   # COA
@@ -131,13 +135,15 @@ for (i in 1:5){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
   
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"))
   rm(gwas, res, X, fit)
   
   # AOA
@@ -149,13 +155,14 @@ for (i in 1:5){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
-  
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"))
   rm(gwas, res, X, fit)
 }
 ```
@@ -175,13 +182,14 @@ for (i in 6:9){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
-  
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"))
   rm(gwas, res, X, fit)
   
   # COA
@@ -193,13 +201,15 @@ for (i in 6:9){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
-  
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"))
   rm(gwas, res, X, fit)
   
   # AOA
@@ -211,13 +221,14 @@ for (i in 6:9){
   cs <- susie_get_cs(fit, X)
   
   colors = rep("#AFB5B5", nrow(gwas))
+  pvals = -log10(gwas[, "p.value.spa"])
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (i in 1:length(cs$cs)){
     snps = colnames(X)[cs$cs[[i]]]
     indx = which(rownames(gwas) %in% snps)
     colors[indx] = cols[i]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
   }
-  
-  plot(-log10(gwas[, "p.value.spa"]), col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"))
   rm(gwas, res, X, fit)
 }
 ```

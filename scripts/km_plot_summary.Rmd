@@ -1,0 +1,139 @@
+---
+title: "km_plot_summary"
+output: html_document
+date: '2024-07-10'
+---
+
+```{r}
+library(survival)
+library(survminer)
+library(susieR)
+library(dplyr)
+library(gridExtra)
+devtools::load_all("/project2/mstephens/yunqiyang/surv-susie/logisticsusie")
+```
+
+```{r}
+plots = list()
+```
+
+```{r}
+
+# COA specific
+region = "chr1_150600001_155100000"
+snp_name = "rs12123821_T"
+res = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_", region, ".rds"))
+pheno = readRDS("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds")
+
+
+fit = res[[1]]
+X = res[[2]]
+effect_estimate <- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c("SNP", "effect")
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+pheno <- pheno[order(pheno$IID), ]
+```
+
+```{r}
+
+indx = which(colnames(X) == snp_name)
+# round genotype to 0, 1, 2
+geno <- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+geno <- as.numeric(as.character(geno))
+
+data <- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+# create survival pheno
+y <- Surv(pheno$time, pheno$event)
+# fit model by different geno group
+fit <- survfit(y ~ data$geno)
+  
+plots[[1]] <- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = "Survival years",
+           ylab = "Survival probability",
+           title = "rs12123821",  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )
+
+
+```
+
+
+```{r}
+
+# AOA specific
+region = "chr12_46000001_48700000"
+snp_name = "rs11168252_A"
+res = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/result/all/fit.susie.", region, ".rds"))
+gwas = readRDS(paste0("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/gwas_surv/all_gwas_", region, ".rds"))
+pheno = readRDS("/project2/mstephens/yunqiyang/surv-susie/realdata/self_report_asthma/surv_all_asthma.rds")
+
+
+fit = res[[1]]
+X = res[[2]]
+effect_estimate <- data.frame(cbind(colnames(X), 
+                                    colSums(fit$alpha * fit$mu)))
+colnames(effect_estimate) = c("SNP", "effect")
+effect_estimate$effect = as.numeric(effect_estimate$effect)
+pheno <- pheno[order(pheno$IID), ]
+```
+
+```{r}
+indx = which(colnames(X) == snp_name)
+# round genotype to 0, 1, 2
+geno <- cut(X[, indx], breaks = c(-Inf, 0.5, 1.5, Inf), labels = c(0, 1, 2), right = FALSE)
+geno <- as.numeric(as.character(geno))
+
+data <- data.frame(time = pheno$time, 
+                   status = pheno$event, 
+                   geno = geno)
+  
+# create survival pheno
+y <- Surv(pheno$time, pheno$event)
+# fit model by different geno group
+fit <- survfit(y ~ data$geno)
+  
+plots[[2]] <- ggsurvplot(fit, data = data, 
+           pval = TRUE, 
+           conf.int = TRUE, 
+           risk.table = TRUE, 
+           lwd = 0.5,
+           ylim = c(0.75, 1),
+           xlim = c(0, 65), 
+           pval.coord = c(10, 0.8),
+           xlab = "Survival years",
+           ylab = "Survival probability",
+           title = "rs11168252",  
+           ggtheme = theme_minimal() + theme(legend.text = element_text(size = 10),  # Adjust legend text size
+                                             legend.title = element_text(size = 12), # Adjust legend title size
+                                             axis.text = element_text(size = 10),    # Adjust axis text size
+                                             axis.title = element_text(size = 12),   # Adjust axis title size
+                                             strip.text = element_text(size = 10)),  # Adjust strip text size
+           risk.table.fontsize = 2.5
+           )
+
+
+```
+
+
+```{r fig.width=8, fig.height=5}
+pdf("/project2/mstephens/yunqiyang/surv-susie/survival-data-analysis/output/km_plot.pdf", width = 8, height = 4)
+# Arrange the plots in a grid layout
+grid.arrange(grobs = lapply(plots, function(x) x$plot), ncol = 2)
+```

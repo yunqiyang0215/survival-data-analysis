@@ -12,7 +12,7 @@ devtools::load_all("/Users/nicholeyang/Downloads/logisticsusie")
 ```
 
 ```{r}
-regions = c("chr11_75500001_77400000", 
+region = c("chr11_75500001_77400000", 
             "chr12_46000001_48700000",
             "chr17_33500001_39800000",
             "chr10_6600001_12200000",
@@ -22,76 +22,66 @@ regions = c("chr11_75500001_77400000",
             "chr2_143400001_147900000",
             "chr6_30500001_32100000")
 
+analysis = c("AA", "AOA", "COA", "AA", "COA", "AA", "AA", "AOA", "AA")
+summary = data.frame(cbind(region, analysis))
+
+
 cols = c("#D63440", "#449559", "#5584B0","#F8A254", "#B57BA2", "#FFE53C")
 ```
 
 
 ```{r}
 cs_summary <- c()
-
-for (i in 1:length(regions)){
+for (i in 1:nrow(summary)){
   
-  region = regions[i]
-  # AA
+  region = summary$region[i]
+  analysis = summary$analysis[i]
+  # gwas results
+  if (analysis == "AA"){
+    gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds")))
+  }
+  if (analysis == "COA"){
+    gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds")))
+  }
+  
+  if (analysis == "AOA"){
+    gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds")))
+  }
+
+  
+  
+  
+  # finemapping results
   res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
+  
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   if (!is.null(cs$cs)){
     for (i in 1:length(cs$cs)){
     size = length(cs$cs[[i]])
-    output = c(region, "AA", size, as.numeric(cs$purity[i, ]))
+    snps = colnames(X)[cs$cs[[i]]]
+    gwas.sub = gwas.survival[rownames(gwas.survival) %in% snps, ]
+    indx = which.min(gwas.sub$p.value.spa)
+    pval = gwas.sub$p.value.spa[indx]
+    top_snp = rownames(gwas.sub)[indx]
+    output = c(region, analysis, size, as.numeric(cs$purity[i, "min.abs.corr"], top_snp, -log10(pval)))
     cs_summary = rbind(output, cs_summary) 
     }
   }
   
-  rm(res, fit, X)
-  
-  # COA
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
-  fit = res[[1]]
-  X = res[[2]]
-  class(fit) = "susie"
-  cs <- susie_get_cs(fit, X)
-  if (!is.null(cs$cs)){
-    for (i in 1:length(cs$cs)){
-    size = length(cs$cs[[i]])
-    output = c(region, "COA", size, as.numeric(cs$purity[i, ]))
-    cs_summary = rbind(output, cs_summary) 
-    }
-  }
-  
-  rm(res, fit, X)
-  
-  # AOA 
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
-  fit = res[[1]]
-  X = res[[2]]
-  class(fit) = "susie"
-  cs <- susie_get_cs(fit, X)
-  
-  if (!is.null(cs$cs)){
-    for (i in 1:length(cs$cs)){
-    size = length(cs$cs[[i]])
-    output = c(region, "AOA", size, as.numeric(cs$purity[i, ]))
-    cs_summary = rbind(output, cs_summary) 
-    }
-  }
   rm(res, fit, X)
 }
-
-colnames(cs_summary) = c("region", "analysis", "size", "min.abs.corr", "mean.abs.corr", "median.abs.corr")
 ```
 
 
 ```{r}
+colnames(cs_summary) = c("region", "analysis", "size", "min.abs.corr")
 rownames(cs_summary) <- NULL
 cs_summary = data.frame(cs_summary)
 cs_summary$size = as.numeric(cs_summary$size)
 cs_summary$min.abs.corr = as.numeric(cs_summary$min.abs.corr)
-cs_summary$mean.abs.corr = as.numeric(cs_summary$mean.abs.corr)
-cs_summary$median.abs.corr = as.numeric(cs_summary$median.abs.corr)
 
 write.table(cs_summary, "/Users/nicholeyang/Downloads/survival-data-analysis/output/cs_summary.txt")
 

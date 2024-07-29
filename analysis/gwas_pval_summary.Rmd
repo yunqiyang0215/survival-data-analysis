@@ -64,7 +64,7 @@ for (i in 1:length(logistic)){
 
 ```{r}
 snp_list = rbind(pval.all, pval.all2)
-write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/top_signal_AA.csv")
+write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_AA.csv")
 ```
 
 
@@ -111,7 +111,7 @@ for (i in 1:length(logistic.coa)){
 
 ```{r}
 snp_list = rbind(pval.coa, pval.coa2)
-write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/top_signal_COA.csv")
+write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_COA.csv")
 ```
 
 
@@ -154,33 +154,42 @@ for (i in 1:length(logistic.aoa)){
 }
 ```
 
-
 ```{r}
 snp_list = rbind(pval.aoa, pval.aoa2)
-write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/top_signal_AOA.csv")
+write.csv(snp_list, "/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_AOA.csv")
 ```
 
+### Likelihood ratios of top signals
 
-```{r eval = FALSE}
+```{r}
+res.AA = read.csv("/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_LR_AA.csv", row.names = "X")
+
+res.COA = read.csv("/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_LR_COA.csv", row.names = "X")
+
+res.AOA = read.csv("/Users/nicholeyang/Downloads/survival-data-analysis/output/logistic_surv_comparison/top_signal_LR_AOA.csv", row.names = "X")
+```
+
+```{r fig.width=10, fig.height=4}
 par(mfrow = c(1,3))
-plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "All asthma")
+plot(res.AA$logistic.1, res.AA$survival, pch = 20, xlab = "Logistic log(LR)", ylab = "CoxPH log(LR)", main = "AA")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "COA")
+plot(res.COA$logistic.1, res.COA$survival, pch = 20, xlab = "Logistic log(LR)", ylab = "CoxPH log(LR)", main = "COA")
 abline(a = 0, b = 1, col = "red")
 
-plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "AOA")
+plot(res.AOA$logistic.1, res.AOA$survival, pch = 20, xlab = "Logistic log(LR)", ylab = "CoxPH log(LR)", main = "AOA")
 abline(a = 0, b = 1, col = "red")
+
 ```
 
-```{r eval = FALSE}
+
+```{r}
 par(mfrow = c(1,3))
-plot(pval.all$logistic, pval.all$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "All asthma")
+plot(res.AA$logistic, res.AA$coxph)
 abline(a = 0, b = 1, col = "red")
-
-plot(pval.coa$logistic, pval.coa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "COA")
+plot(res.AOA$logistic, res.AOA$coxph)
 abline(a = 0, b = 1, col = "red")
-
-plot(pval.aoa$logistic, pval.aoa$coxph, pch = 20, cex= 0.8, xlab ="-log10(logistic pval)", ylab = "-log10(coxph pval.spa)", main = "AOA")
+plot(res.COA$logistic, res.COA$coxph)
 abline(a = 0, b = 1, col = "red")
 ```
+

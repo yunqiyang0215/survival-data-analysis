@@ -113,23 +113,36 @@ for (i in 1:length(file.aoa)){
 pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/Fig_gwas_coa_aoa.pdf", width = 10, height = 8)
 par(mfrow = c(2,2))
 indx = c(1, 2, 4, 9)
-labels = c("(a)", "(b)", "(c)", "(d)") 
+labels = c("(a)", "(b)", "(c)", "(d)")
+region_name = c("1q21.3", "10p14", "12q13.11", "2q12.1")
 for (i in 1:length(indx)){
   region.aoa = file.aoa[indx[i]]
   region.coa = file.coa[indx[i]]
-  region_name = str_extract(region.aoa, pattern)
   gwas.aoa = readRDS(region.aoa)
   gwas.coa = readRDS(region.coa)
+  
   ymin = min(log10(gwas.aoa[, 'p.value.spa']), na.rm = TRUE) - 1
   ymax = max(-log10(gwas.coa[, 'p.value.spa']), na.rm = TRUE) + 2
-  plot(log10(gwas.aoa[, 'p.value.spa']), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = "#2c7fb8", main = region_name, ylab = "log10-pval", xlab = "")
+  
+  plot(log10(gwas.aoa[, 'p.value.spa']), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = "#2c7fb8", main = region_name[i], ylab = "-log10(P value)", xlab = "", axes = FALSE)
   points(-log10(gwas.coa[, 'p.value.spa']), pch = 20, cex = 0.5, col = "#de2d26")
+  
+  # Custom y-axis ticks and labels
+  y_ticks_pos <- seq(0, ymax, by = 5)
+  y_ticks_neg <- seq(0, abs(ymin), by = 5)
+  
+  axis(2, at = c(-rev(y_ticks_neg), y_ticks_pos), labels = c(rev(y_ticks_neg), y_ticks_pos), las = 1)
+  
+  box()  # Adding box around the plot
+  
   legend("topright", legend = c("COA", "AOA"), col = c("#de2d26", "#2c7fb8"), pch = 20)
   mtext("Position", side = 1, line = 3, adj = 0.5, cex = 0.8)
   mtext(labels[i], side = 1, line = 4, adj = 0.5, cex = 1)
 }
 
 ```
+
+
 
 
 

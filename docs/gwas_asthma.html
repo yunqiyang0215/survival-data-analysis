@@ -384,7 +384,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-07-25
+<strong>Last updated:</strong> 2024-08-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -499,16 +499,16 @@ output/Fig_gwas_coa_aoa.pdf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree31ab8144f078c03ffc6770de2a9e6ebab6fa7fa8targetblank31ab814a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/31ab8144f078c03ffc6770de2a9e6ebab6fa7fa8" target="_blank">31ab814</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree4cdd515690b4e72653b6c38e3d488f4550c31bc4targetblank4cdd515a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/4cdd515690b4e72653b6c38e3d488f4550c31bc4" target="_blank">4cdd515</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree31ab8144f078c03ffc6770de2a9e6ebab6fa7fa8targetblank31ab814a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomyunqiyang0215survivaldataanalysistree4cdd515690b4e72653b6c38e3d488f4550c31bc4targetblank4cdd515a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/31ab8144f078c03ffc6770de2a9e6ebab6fa7fa8" target="_blank">31ab814</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/yunqiyang0215/survival-data-analysis/tree/4cdd515690b4e72653b6c38e3d488f4550c31bc4" target="_blank">4cdd515</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -525,7 +525,7 @@ Untracked files:
     Untracked:  data/gwas_chr17_33500001_39800000.txt
 
 Unstaged changes:
-    Modified:   analysis/gwas_pval_summary.Rmd
+    Modified:   output/Fig_gwas_coa_aoa.pdf
     Deleted:    output/top_signal_AA.csv
     Deleted:    output/top_signal_AOA.csv
     Deleted:    output/top_signal_COA.csv
@@ -568,6 +568,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/4cdd515690b4e72653b6c38e3d488f4550c31bc4/analysis/gwas_asthma.Rmd" target="_blank">4cdd515</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-08-15
+</td>
+<td>
+wflow_publish("analysis/gwas_asthma.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/yunqiyang0215/survival-data-analysis/6c4656157c322dde6aa8e6ed05261757d2cb5531/docs/gwas_asthma.html" target="_blank">6c46561</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1145,6 +1179,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/6c4656157c322dde6aa8e6ed05261757d2cb5531/docs/figure/gwas_asthma.Rmd/unnamed-chunk-7-1.png" target="_blank">6c46561</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/d61db5c9adeb990bc481346022e378cad3223457/docs/figure/gwas_asthma.Rmd/unnamed-chunk-7-1.png" target="_blank">d61db5c</a>
 </td>
 <td>
@@ -1205,17 +1250,28 @@ yunqiyang0215
 <pre class="r"><code>pdf(&quot;/Users/nicholeyang/Downloads/survival-data-analysis/output/Fig_gwas_coa_aoa.pdf&quot;, width = 10, height = 8)
 par(mfrow = c(2,2))
 indx = c(1, 2, 4, 9)
-labels = c(&quot;(a)&quot;, &quot;(b)&quot;, &quot;(c)&quot;, &quot;(d)&quot;) 
+labels = c(&quot;(a)&quot;, &quot;(b)&quot;, &quot;(c)&quot;, &quot;(d)&quot;)
+region_name = c(&quot;1q21.3&quot;, &quot;10p14&quot;, &quot;12q13.11&quot;, &quot;2q12.1&quot;)
 for (i in 1:length(indx)){
   region.aoa = file.aoa[indx[i]]
   region.coa = file.coa[indx[i]]
-  region_name = str_extract(region.aoa, pattern)
   gwas.aoa = readRDS(region.aoa)
   gwas.coa = readRDS(region.coa)
+  
   ymin = min(log10(gwas.aoa[, &#39;p.value.spa&#39;]), na.rm = TRUE) - 1
   ymax = max(-log10(gwas.coa[, &#39;p.value.spa&#39;]), na.rm = TRUE) + 2
-  plot(log10(gwas.aoa[, &#39;p.value.spa&#39;]), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = &quot;#2c7fb8&quot;, main = region_name, ylab = &quot;log10-pval&quot;, xlab = &quot;&quot;)
+  
+  plot(log10(gwas.aoa[, &#39;p.value.spa&#39;]), ylim = c(ymin, ymax), pch = 20, cex = 0.5, col = &quot;#2c7fb8&quot;, main = region_name[i], ylab = &quot;-log10(P value)&quot;, xlab = &quot;&quot;, axes = FALSE)
   points(-log10(gwas.coa[, &#39;p.value.spa&#39;]), pch = 20, cex = 0.5, col = &quot;#de2d26&quot;)
+  
+  # Custom y-axis ticks and labels
+  y_ticks_pos &lt;- seq(0, ymax, by = 5)
+  y_ticks_neg &lt;- seq(0, abs(ymin), by = 5)
+  
+  axis(2, at = c(-rev(y_ticks_neg), y_ticks_pos), labels = c(rev(y_ticks_neg), y_ticks_pos), las = 1)
+  
+  box()  # Adding box around the plot
+  
   legend(&quot;topright&quot;, legend = c(&quot;COA&quot;, &quot;AOA&quot;), col = c(&quot;#de2d26&quot;, &quot;#2c7fb8&quot;), pch = 20)
   mtext(&quot;Position&quot;, side = 1, line = 3, adj = 0.5, cex = 0.8)
   mtext(labels[i], side = 1, line = 4, adj = 0.5, cex = 1)
@@ -1339,6 +1395,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/6c4656157c322dde6aa8e6ed05261757d2cb5531/docs/figure/gwas_asthma.Rmd/unnamed-chunk-12-1.png" target="_blank">6c46561</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/f68b8d155054d41806665b9892458c8767066073/docs/figure/gwas_asthma.Rmd/unnamed-chunk-12-1.png" target="_blank">f68b8d1</a>
 </td>
 <td>
@@ -1403,6 +1470,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/6c4656157c322dde6aa8e6ed05261757d2cb5531/docs/figure/gwas_asthma.Rmd/unnamed-chunk-14-1.png" target="_blank">6c46561</a>
+</td>
+<td>
+yunqiyang0215
+</td>
+<td>
+2024-07-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/yunqiyang0215/survival-data-analysis/blob/f68b8d155054d41806665b9892458c8767066073/docs/figure/gwas_asthma.Rmd/unnamed-chunk-14-1.png" target="_blank">f68b8d1</a>

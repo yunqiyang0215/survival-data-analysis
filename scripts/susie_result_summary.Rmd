@@ -12,7 +12,7 @@ devtools::load_all("/Users/nicholeyang/Downloads/logisticsusie")
 ```
 
 ```{r}
-region = c("chr11_75500001_77400000", 
+regions = c("chr11_75500001_77400000", 
             "chr12_46000001_48700000",
             "chr17_33500001_39800000",
             "chr10_6600001_12200000",
@@ -22,10 +22,11 @@ region = c("chr11_75500001_77400000",
             "chr2_143400001_147900000",
             "chr6_30500001_32100000")
 
+region_name = c("11q13.5", "12q13.1", "17q12", "10p14", "1q21.3", "15q22.2", "2q12.1", "2q22.3", "6p21.33")
+
+
 analysis = c("AA", "AOA", "COA", "AA", "COA", "AA", "AA", "AOA", "AA")
-summary = data.frame(cbind(region, analysis))
-
-
+summary = data.frame(cbind(regions, analysis))
 cols = c("#D63440", "#449559", "#5584B0","#F8A254", "#B57BA2", "#FFE53C")
 ```
 
@@ -36,23 +37,26 @@ for (i in 1:nrow(summary)){
   
   region = summary$region[i]
   analysis = summary$analysis[i]
-  # gwas results
+  
   if (analysis == "AA"){
+    # gwas results
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds")))
+    # finemapping results
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
   }
+
   if (analysis == "COA"){
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds")))
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
   }
   
   if (analysis == "AOA"){
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds")))
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
   }
+  
+  
 
-  
-  
-  
-  # finemapping results
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   
@@ -66,28 +70,27 @@ for (i in 1:nrow(summary)){
     indx = which.min(gwas.sub$p.value.spa)
     pval = gwas.sub$p.value.spa[indx]
     top_snp = rownames(gwas.sub)[indx]
-    output = c(region, analysis, size, as.numeric(cs$purity[i, "min.abs.corr"], top_snp, -log10(pval)))
+    output = c(region, analysis, size, as.numeric(cs$purity[i, "min.abs.corr"]), top_snp, -log10(pval))
     cs_summary = rbind(output, cs_summary) 
     }
   }
-  
-  rm(res, fit, X)
+  rm(res, fit, X, gwas.survival)
 }
 ```
 
 
 ```{r}
-colnames(cs_summary) = c("region", "analysis", "size", "min.abs.corr")
+colnames(cs_summary) = c("region", "analysis", "size", "min.abs.corr", "variant", "neg.log10_pval")
 rownames(cs_summary) <- NULL
 cs_summary = data.frame(cs_summary)
 cs_summary$size = as.numeric(cs_summary$size)
-cs_summary$min.abs.corr = as.numeric(cs_summary$min.abs.corr)
+cs_summary$min.abs.corr = round(as.numeric(cs_summary$min.abs.corr), 2)
+cs_summary$neg.log10_pval = round(as.numeric(cs_summary$neg.log10_pval), 2)
 
-write.table(cs_summary, "/Users/nicholeyang/Downloads/survival-data-analysis/output/cs_summary.txt")
+
+write.csv(cs_summary, "/Users/nicholeyang/Downloads/survival-data-analysis/output/cs_summary.csv")
 
 ```
-
-
 
 ```{r fig.height = 16, fig.width = 10}
 pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/susie1.pdf", width = 10, height = 16)
@@ -104,13 +107,13 @@ for (i in 1:5){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   
   
@@ -126,12 +129,13 @@ for (i in 1:5){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   
   rm(gwas, res, X, fit)
@@ -146,12 +150,12 @@ for (i in 1:5){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   rm(gwas, res, X, fit)
 }
@@ -173,12 +177,12 @@ for (i in 6:9){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   rm(gwas, res, X, fit)
   
@@ -192,13 +196,13 @@ for (i in 6:9){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   rm(gwas, res, X, fit)
   
@@ -212,12 +216,12 @@ for (i in 6:9){
   
   colors = rep("#AFB5B5", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
-  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region, ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
-  for (i in 1:length(cs$cs)){
-    snps = colnames(X)[cs$cs[[i]]]
+  plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
+  for (j in 1:length(cs$cs)){
+    snps = colnames(X)[cs$cs[[j]]]
     indx = which(rownames(gwas) %in% snps)
-    colors[indx] = cols[i]
-    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[i], pch = 20)
+    colors[indx] = cols[j]
+    points(indx, -log10(gwas[indx, "p.value.spa"]), col = cols[j], pch = 20)
   }
   rm(gwas, res, X, fit)
 }

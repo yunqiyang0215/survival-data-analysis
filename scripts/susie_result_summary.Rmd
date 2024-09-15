@@ -19,15 +19,14 @@ regions = c("chr11_75500001_77400000",
             "chr1_150600001_155100000",
             "chr15_59000001_63400000",
             "chr2_102100001_105300000",
-            "chr2_143400001_147900000",
-            "chr6_30500001_32100000")
+            "chr2_143400001_147900000")
 
-region_name = c("11q13.5", "12q13.1", "17q12", "10p14", "1q21.3", "15q22.2", "2q12.1", "2q22.3", "6p21.33")
+region_name = c("11q13.5", "12q13.1", "17q12", "10p14", "1q21.3", "15q22.2", "2q12.1", "2q22.3")
 
 
-analysis = c("AA", "AOA", "COA", "AA", "COA", "AA", "AA", "AOA", "AA")
+analysis = c("AA", "AOA", "COA", "AA", "COA", "AA", "AA", "AOA")
 summary = data.frame(cbind(regions, analysis))
-cols = c("#D63440", "#449559", "#5584B0","#F8A254", "#B57BA2", "#FFE53C")
+cols = c("#D63440", "#5584B0","#F8A254", "#449559", "#B57BA2", "#FFE53C")
 ```
 
 
@@ -42,17 +41,17 @@ for (i in 1:nrow(summary)){
     # gwas results
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds")))
     # finemapping results
-    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/all/fit.susie.", region, ".rds"))
   }
 
   if (analysis == "COA"){
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds")))
-    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/coa/fit.susie.", region, ".rds"))
   }
   
   if (analysis == "AOA"){
     gwas.survival = data.frame(readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds")))
-    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
+    res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/aoa/fit.susie.", region, ".rds"))
   }
   
   
@@ -93,19 +92,19 @@ write.csv(cs_summary, "/Users/nicholeyang/Downloads/survival-data-analysis/outpu
 ```
 
 ```{r fig.height = 16, fig.width = 10}
-pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/susie1.pdf", width = 10, height = 16)
-layout(matrix(1:15, ncol = 3, byrow = TRUE))
-for (i in 1:5){
+pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/susie1.pdf", width = 10, height = 13)
+layout(matrix(1:12, ncol = 3, byrow = TRUE))
+for (i in 1:4){
   # AA
   region = regions[i]
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/all/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   
@@ -120,14 +119,14 @@ for (i in 1:5){
   rm(gwas, res, X, fit)
   
   # COA
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/coa/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   
@@ -141,14 +140,14 @@ for (i in 1:5){
   rm(gwas, res, X, fit)
   
   # AOA
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/aoa/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (j in 1:length(cs$cs)){
@@ -165,17 +164,17 @@ for (i in 1:5){
 ```{r fig.height = 16, fig.width = 10}
 pdf("/Users/nicholeyang/Downloads/survival-data-analysis/output/susie2.pdf", width = 10, height = 13)
 layout(matrix(1:12, ncol = 3, byrow = TRUE))
-for (i in 6:9){
+for (i in 5:8){
   # AA
   region = regions[i]
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/all/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/all/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/all_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (j in 1:length(cs$cs)){
@@ -187,14 +186,14 @@ for (i in 6:9){
   rm(gwas, res, X, fit)
   
   # COA
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/coa/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/coa/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/coa_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": COA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   
@@ -207,14 +206,14 @@ for (i in 6:9){
   rm(gwas, res, X, fit)
   
   # AOA
-  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result/aoa/fit.susie.", region, ".rds"))
+  res = readRDS(paste0("/Users/nicholeyang/Downloads/survivalsusie/result/asthma_self_report/result202408/aoa/fit.susie.", region, ".rds"))
   gwas = readRDS(paste0("/Users/nicholeyang/downloads/survivalsusie/result/gwas_surv/aoa_gwas_", region, ".rds"))
   fit = res[[1]]
   X = res[[2]]
   class(fit) = "susie"
   cs <- susie_get_cs(fit, X)
   
-  colors = rep("#AFB5B5", nrow(gwas))
+  colors = rep("#C3C3C3", nrow(gwas))
   pvals = -log10(gwas[, "p.value.spa"])
   plot(pvals, col = colors, xlab = "SNP", ylab = "-log10(p-value)", cex = 0.8, pch = 20, main = paste0(region_name[i], ": AOA"), ylim = c(0, max(pvals, na.rm = TRUE)+0.1))
   for (j in 1:length(cs$cs)){

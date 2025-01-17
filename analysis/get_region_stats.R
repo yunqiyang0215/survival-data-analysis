@@ -1,3 +1,6 @@
+# This script was used to compile statistics for the table in the
+# paper summarizing the asthma fine-mapping regions.
+#
 # cd /gpfs/data/stephens-lab/uk-biobank-survival/yunqi/survpheno/
 # cd ukb_asthma_self_report/data
 #

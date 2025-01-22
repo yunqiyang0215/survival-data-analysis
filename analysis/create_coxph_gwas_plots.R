@@ -4,9 +4,10 @@ library(ggplot2)
 library(ggrepel)
 library(cowplot)
 region <- "chr1_150600001_155100000"
+# region <- "chr2_102100001_105300000"
 # region <- "chr10_6600001_12200000"
 # region <- "chr12_46000001_48700000"
-# region <- "chr15_59000001_63400000"
+set.seed(1)
 aoa  <- readRDS(sprintf("../output/gwas_surv/aoa_gwas_%s.rds",region))
 coa  <- readRDS(sprintf("../output/gwas_surv/coa_gwas_%s.rds",region))
 res  <- data.frame(id = rownames(aoa),
@@ -22,6 +23,11 @@ pvar <- pvar[rows,]
 res  <- cbind(res,pvar["POS"])
 rownames(res) <- NULL
 pdat <- res
+rows1 <- which(pdat$coa > 1 | pdat$aoa > 1)
+rows2 <- sample(which(pdat$coa <= 1 & pdat$aoa <= 1),500)
+print(nrow(pdat))
+pdat <- pdat[c(rows1,rows2),]
+print(nrow(pdat))
 pdat <- transform(pdat,POS = POS/1e6)
 rows <- c(which.max(pdat$coa),which.max(pdat$aoa))
 pdat[-rows,"id"] <- ""
@@ -41,4 +47,3 @@ p <- ggplot(pdat) +
   theme_cowplot(font_size = 10)
 print(p)
 ggsave(sprintf("coxph_gwas_plot_%s.pdf",region),p,height = 3,width = 5)
-

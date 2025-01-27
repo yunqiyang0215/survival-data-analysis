@@ -56,7 +56,7 @@ for (i in 1:n) {
     # Extract the susie results.
     cs   <- susie_get_cs(fit,X)
     pips <- susie_get_pip(fit)
-    if (!is.null(cs$cs)){
+    if (!is.null(cs$cs)) {
       num_cs <- length(cs$cs)
       for (j in 1:num_cs) {
         snps <- cs$cs[[j]]

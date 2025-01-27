@@ -1,4 +1,6 @@
-# TO DO: Explain here what this script is for, and how to use it.
+# This script generates CSV file ukbiobank_asthma_cs_summary.csv
+# summarizing the CoxPH-SuSiE fine-mapping results on the UK Biobank
+# asthma data.
 library(susieR)
 # library(SPACox)
 analyses <-

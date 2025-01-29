@@ -1,4 +1,5 @@
-# TO DO: Explain here what this script does, and how to use it.
+# This was the script used to generate the main fine-mapping plots for
+# the asthma fine-mapping section of the paper.
 library(ggplot2)
 library(ggrepel)
 library(cowplot)
@@ -8,20 +9,18 @@ library(susieR)
 # analyses:
 analyses <-
   data.frame(name = c("1q21.3","1q21.3","2q12.1","2q12.1","2q12.1","2q22.3",
-                      "2q22.3","10p14","10p14","10p14","11q13.5","11q13.5",
-                       "11q13.5","12q13.1","15q22.2","15q22.2","17q12",
-                       "17q12"),
+                      "10p14","10p14","10p14","11q13.5","11q13.5",
+                      "12q13.1","15q22.2","15q22.2","17q12","17q12"),
              region = c("chr1_150600001_155100000","chr1_150600001_155100000",
                         "chr2_102100001_105300000","chr2_102100001_105300000",
                         "chr2_102100001_105300000","chr2_143400001_147900000",
-                        "chr2_143400001_147900000","chr10_6600001_12200000",
                         "chr10_6600001_12200000","chr10_6600001_12200000",
-                        "chr11_75500001_77400000","chr11_75500001_77400000",
+                        "chr10_6600001_12200000","chr11_75500001_77400000",
                         "chr11_75500001_77400000","chr12_46000001_48700000",
                         "chr15_59000001_63400000","chr15_59000001_63400000",
                         "chr17_33500001_39800000","chr17_33500001_39800000"),
-             trait = c("COA","all","COA","AOA","all","AOA","all","COA","AOA",
-                       "all","COA","AOA","all","AOA","COA","all","COA","all"),
+             trait = c("COA","all","COA","AOA","all","AOA","COA","AOA",
+                       "all","COA","all","AOA","COA","all","COA","all"),
              stringsAsFactors = FALSE)
 
 # Repeat for each of the fine-mapping analyses.
@@ -40,9 +39,8 @@ for (analysis in 1:n) {
                      comment.char = "")
   gwas <- readRDS(sprintf("../output/gwas_surv/%s_gwas_%s.rds",
                           tolower(trait),region))
-  res  <- readRDS(sprintf("../output/result202408/%s/fit.susie.%d.rds",
+  res  <- readRDS(sprintf("../output/result202408/%s/fit.susie.%s.rds",
                           tolower(trait),region))
-  next
   fit  <- res[[1]]
   X    <- res[[2]]
   rownames(pvar) <- pvar$ID
@@ -84,13 +82,19 @@ for (analysis in 1:n) {
     geom_text_repel(data = pdat,color = "black",max.overlaps = Inf,size = 3.5,
                   min.segment.length = 0) +
     scale_color_manual(values = cs_colors) +
-    scale_y_continuous(breaks = seq(0,100,5)) +
+    scale_y_continuous(breaks = seq(0,100,
+        ifelse(max(pdat$pval,na.rm = TRUE) > 15,5,2))) +
     labs(x = "base-pair position on chromosome (Mb)",
          y = "-log10 p-value",
-         title = paste0(region,", ",trait)) +
-    theme_cowplot(font_size = 12)
+         title = paste0(analyses[analysis,"name"],", ",trait)) +
+    theme_cowplot(font_size = 12) 
 }
 
 # Save the plots in two PDFs.
-# ggsave("coxph_finemap_plots1.pdf",plots,height = 3.5,width = 6)
-# ggsave("coxph_finemap_plots2.pdf",plots,height = 3.5,width = 6)
+ggsave("coxph_finemap_plots.pdf",
+       plot_grid(plots[[1]],plots[[2]],plots[[3]],plots[[4]],plots[[5]],
+                 plots[[6]],plots[[7]],plots[[8]],plots[[9]],plots[[10]],
+                 plots[[11]],plots[[12]],plots[[13]],plots[[14]],
+                 plots[[15]],plots[[16]],
+                 nrow = 4,ncol = 4),
+       height = 12,width = 16)

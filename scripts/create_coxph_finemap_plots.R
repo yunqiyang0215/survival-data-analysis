@@ -10,7 +10,8 @@ library(susieR)
 analyses <-
   data.frame(name = c("1q21.3","1q21.3","2q12.1","2q12.1","2q12.1","2q22.3",
                       "10p14","10p14","10p14","11q13.5","11q13.5",
-                      "12q13.1","15q22.2","15q22.2","17q12","17q12"),
+                      "12q13.1","15q22.2","15q22.2","17q12","17q12",
+                      "2q12.1","11q13.5"),
              region = c("chr1_150600001_155100000","chr1_150600001_155100000",
                         "chr2_102100001_105300000","chr2_102100001_105300000",
                         "chr2_102100001_105300000","chr2_143400001_147900000",
@@ -18,9 +19,29 @@ analyses <-
                         "chr10_6600001_12200000","chr11_75500001_77400000",
                         "chr11_75500001_77400000","chr12_46000001_48700000",
                         "chr15_59000001_63400000","chr15_59000001_63400000",
-                        "chr17_33500001_39800000","chr17_33500001_39800000"),
+                        "chr17_33500001_39800000","chr17_33500001_39800000",
+                        "chr2_102100001_105300000","chr11_75500001_77400000"),
              trait = c("COA","all","COA","AOA","all","AOA","COA","AOA",
-                       "all","COA","all","AOA","COA","all","COA","all"),
+                       "all","COA","all","AOA","COA","all","COA","all",
+                       "all","all"),
+             gwas_file = c("coa_gwas_chr1_150600001_155100000.rds",
+                           "all_gwas_chr1_150600001_155100000.rds",
+                           "coa_gwas_chr2_102100001_105300000.rds",
+                           "aoa_gwas_chr2_102100001_105300000.rds",
+                           "all_gwas_chr2_102100001_105300000.rds",
+                           "aoa_gwas_chr2_143400001_147900000.rds",
+                           "coa_gwas_chr10_6600001_12200000.rds",
+                           "aoa_gwas_chr10_6600001_12200000.rds",
+                           "all_gwas_chr10_6600001_12200000.rds",
+                           "coa_gwas_chr11_75500001_77400000.rds",
+                           "all_gwas_chr11_75500001_77400000.rds",
+                           "aoa_gwas_chr12_46000001_48700000.rds",
+                           "coa_gwas_chr15_59000001_63400000.rds",
+                           "all_gwas_chr15_59000001_63400000.rds",
+                           "coa_gwas_chr17_33500001_39800000.rds",
+                           "all_gwas_chr17_33500001_39800000.rds",
+                           "all_gwas_chr2_102100001_105300000_rs72823641_A.rds",
+                           "all_gwas_chr11_75500001_77400000_rs11236797_A.rds"),
              stringsAsFactors = FALSE)
 
 # Repeat for each of the fine-mapping analyses.
@@ -37,8 +58,7 @@ for (analysis in 1:n) {
   pvar <- read.table(sprintf("../data/geno_regions/%s.pvar.gz",region),
                      sep = "\t",header = TRUE,stringsAsFactors = FALSE,
                      comment.char = "")
-  gwas <- readRDS(sprintf("../output/gwas_surv/%s_gwas_%s.rds",
-                          tolower(trait),region))
+  gwas <- readRDS(sprintf("../output/gwas_surv/%s",analyses[analysis,"gwas_file"]))
   res  <- readRDS(sprintf("../output/result202408/%s/fit.susie.%s.rds",
                           tolower(trait),region))
   fit  <- res[[1]]
@@ -49,7 +69,7 @@ for (analysis in 1:n) {
   ids  <- sapply(strsplit(colnames(X),"_"),"[[",1)
   pvar <- pvar[ids,]
   gwas <- gwas[ids,]
-  
+                  
   # Set up the plotting data structure.
   pdat <- data.frame(id    = ids,
                    label = "",
@@ -95,6 +115,6 @@ ggsave("coxph_finemap_plots.pdf",
        plot_grid(plots[[1]],plots[[2]],plots[[3]],plots[[4]],plots[[5]],
                  plots[[6]],plots[[7]],plots[[8]],plots[[9]],plots[[10]],
                  plots[[11]],plots[[12]],plots[[13]],plots[[14]],
-                 plots[[15]],plots[[16]],
-                 nrow = 4,ncol = 4),
-       height = 12,width = 16)
+                 plots[[15]],plots[[16]],plots[[17]],plots[[18]],
+                 nrow = 5,ncol = 4),
+       height = 15,width = 16)

@@ -4,8 +4,14 @@
 .Ruserdata
 .Rapp.history
 .DS_Store
+data/geno_regions/*.log
+data/geno_regions/*.pvar
+data/geno_regions/*.psam
 analysis/figure
 analysis/*png
 analysis/*html
 analysis/*_cache
 analysis/site_libs
+res_susie/
+result202408/
+get_geno202404/geno

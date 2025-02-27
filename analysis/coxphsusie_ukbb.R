@@ -42,12 +42,10 @@ fit_coxph <- ser_from_univariate(surv_uni_fun)
 num_cores <- 1
 print(num_cores)
 t0 <- proc.time()
-fit <- ibss_from_ser(geno,pheno,L = 10,prior_variance = 1,
-                     prior_weights = rep(1/p,p),tol = 0.001,maxit = 10,
+fit <- ibss_from_ser(geno,pheno,L = 10,tol = 0.001,maxit = 10,
                      ser_function = ser_from_univariate(surv_uni_fun),
-                     estimate_intercept = TRUE,num_cores = num_cores)
+                     num_cores = num_cores)
 t1 <- proc.time()
 print(t1 - t0)
-
-
+save(list = "fit",file = "coxphsusie_ukbb.RData")
 

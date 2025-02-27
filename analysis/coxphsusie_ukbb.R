@@ -39,7 +39,7 @@ pheno <- Surv(pheno$time,pheno$event)
 ### Fit susie
 p <- ncol(geno)
 fit_coxph <- ser_from_univariate(surv_uni_fun)
-num_cores <- 1
+num_cores <- 10
 print(num_cores)
 t0 <- proc.time()
 fit <- ibss_from_ser(geno,pheno,L = 10,tol = 0.001,maxit = 10,
@@ -47,5 +47,5 @@ fit <- ibss_from_ser(geno,pheno,L = 10,tol = 0.001,maxit = 10,
                      num_cores = num_cores)
 t1 <- proc.time()
 print(t1 - t0)
-save(list = "fit",file = "coxphsusie_ukbb.RData")
+save(list = "fit",file = "coxphsusie_ukbb_multicore.RData")
 

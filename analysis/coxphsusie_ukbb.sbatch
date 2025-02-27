@@ -3,7 +3,7 @@
 #SBATCH --job-name=coxphsusie_ukbb
 #SBATCH --partition=tier2q
 #SBATCH --time=24:00:00
-#SBATCH --cpus-per-task=1
+#SBATCH --cpus-per-task=10
 #SBATCH --mem=24G
 
 module load gcc/12.1.0

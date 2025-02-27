@@ -26,25 +26,26 @@ surv_uni_fun <- function (x, y, e, prior_variance,
 pheno <- readRDS("../data/surv_pheno/surv_coa.rds")
 geno <- readRDS("../data/geno_finemap_region202408/chr10_6600001_12200000.rds")
 
-# Align the two data sets.
-geno  <- geno[order(geno$IID), ]
-pheno <- pheno[order(pheno$IID), ]
-
-indx <- which(geno$IID %in% pheno$IID)
-geno <- geno[indx,]
-
-y    <- Surv(pheno$time,pheno$event)
-geno <- geno[, 3:ncol(geno)]
-geno <- as.matrix(geno)
+# Align the two data sets and prepare the genotype and phenotype data
+# for the CoxPH-SuSiE analysis.
+geno  <- geno[order(geno$IID),]
+pheno <- pheno[order(pheno$IID),]
+indx  <- which(geno$IID %in% pheno$IID)
+geno  <- geno[indx,]
+pheno <- Surv(pheno$time,pheno$event)
+geno  <- geno[, 3:ncol(geno)]
+geno  <- as.matrix(geno)
 
 ### Fit susie
 p <- ncol(geno)
 fit_coxph <- ser_from_univariate(surv_uni_fun)
 num_cores <- 1
+print(num_cores)
 t0 = proc.time()
-fit <- ibss_from_ser(geno, y, L = 10, prior_variance = 1,
-                     prior_weights = rep(1/p, p), tol = 1e-3, maxit = 10,
-                     estimate_intercept = TRUE, ser_function = fit_coxph,
+fit <- ibss_from_ser(geno,pheno,L = 10,prior_variance = 1,
+                     prior_weights = rep(1/p,p),tol = 0.001,maxit = 10,
+                     estimate_intercept = TRUE,
+                     ser_function = ser_from_univariate(surv_uni_fun),
                      num_cores = num_cores)
 t1 <- proc.time()
 print(t1 - t0)

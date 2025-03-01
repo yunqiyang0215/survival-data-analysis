@@ -21,21 +21,24 @@ out <- NULL
 n <- nrow(regions)
 for (i in 1:n) {
   region <- regions[i,"filename"]
-  pvar <- read.table(sprintf("geno_regions/%s.pvar",region),sep = "\t",
+  pvar <- read.table(sprintf("../data/geno_regions/%s.pvar",region),sep = "\t",
                      header = TRUE,stringsAsFactors = FALSE,comment.char = "")
   rownames(pvar) <- pvar$ID
   for (trait in traits) {
     cat("region = ",regions[i,"name"],", trait = ",trait,"\n",sep = "")
     if (trait == "COA") {
-      gwas <- data.frame(readRDS(paste0("gwas_surv/coa_gwas_",region,".rds")))
-      res  <- readRDS(paste0("result202408/coa/fit.susie.",region,".rds"))
+      gwas <- data.frame(readRDS(paste0("../data/gwas_surv/coa_gwas_",
+                                        region,".rds")))
+      res  <- readRDS(paste0("../result202408/coa/fit.susie.",region,".rds"))
     }
     else if (trait == "AOA") {
-      gwas <- data.frame(readRDS(paste0("gwas_surv/aoa_gwas_",region,".rds")))
-      res  <- readRDS(paste0("result202408/aoa/fit.susie.",region,".rds"))
+      gwas <- data.frame(readRDS(paste0("../data/gwas_surv/aoa_gwas_"
+                                        ,region,".rds")))
+      res  <- readRDS(paste0("../result202408/aoa/fit.susie.",region,".rds"))
     } else {
-      gwas <- data.frame(readRDS(paste0("gwas_surv/all_gwas_",region,".rds")))
-      res  <- readRDS(paste0("result202408/all/fit.susie.",region,".rds"))
+      gwas <- data.frame(readRDS(paste0("../data/gwas_surv/all_gwas_",
+                                        region,".rds")))
+      res  <- readRDS(paste0("../result202408/all/fit.susie.",region,".rds"))
     }
     fit <- res[[1]]
     X   <- res[[2]]

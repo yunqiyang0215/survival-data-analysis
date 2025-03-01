@@ -27,8 +27,9 @@ for (i in 1:n) {
     gwas <- data.frame(readRDS(paste0("gwas_surv/aoa_gwas_",region,".rds")))
     res  <- readRDS(paste0("result202408/aoa/fit.susie.",region,".rds"))
   } else {
-    gwas <- data.frame(readRDS(paste0("gwas_surv/all_gwas_",region,".rds")))
-    res  <- readRDS(paste0("result202408/all/fit.susie.",region,".rds"))
+    gwas <- data.frame(readRDS(paste0("../data/gwas_surv/all_gwas_",
+                                      region,".rds")))
+    res  <- readRDS(paste0("../result202408/all/fit.susie.",region,".rds"))
   }
   fit <- res[[1]]
   X <- res[[2]]
@@ -46,9 +47,9 @@ for (i in 1:n) {
       cs_size <- length(cs$cs[[j]])
       snps    <- cs$cs[[j]]
       snps    <- ids[snps]
-      gwas1   <- gwas[snps,]
-      top_snp <- which.min(gwas1$p.value.spa)
-      top_snp <- rownames(gwas1)[top_snp]
+      pips1   <- pips[snps]
+      top_snp <- which.max(pips1)
+      top_snp <- names(pips1[top_snp])
       out <- rbind(out,
                    data.frame(region = region,
                               trait = trait,
@@ -56,7 +57,7 @@ for (i in 1:n) {
                               CS_size = cs_size,
                               purity  = cs$purity[j,"min.abs.corr"],
                               SNP     = top_snp,
-                              pval    = gwas1[top_snp,"p.value.spa"],
+                              pval    = gwas[top_snp,"p.value.spa"],
                               PIP     = pips[top_snp],
                               stringsAsFactors = FALSE))
     }

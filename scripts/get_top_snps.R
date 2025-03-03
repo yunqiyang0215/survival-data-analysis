@@ -6,10 +6,10 @@ regions <- c("chr1_150600001_155100000",
              "chr15_59000001_63400000",
              "chr17_33500001_39800000",
              "chr2_102100001_105300000",
-             "chr6_30500001_32100000",
              "chr12_46000001_48700000",
              "chr2_143400001_147900000")
-analysis.prefer <- c("coa","aa","aa","aa","coa","aa","aa","aoa","aoa")
+analysis.prefer <- c("coa","aa","aa","aa",
+                     "coa","coa","aa","aoa")
 
 for (i in 1:length(regions)) {
   reg = regions[i]

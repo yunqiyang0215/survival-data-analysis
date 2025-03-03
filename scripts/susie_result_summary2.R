@@ -10,7 +10,8 @@ analyses <-
                         "chr15_59000001_63400000","chr17_33500001_39800000"),
              name = c("1q21.3","2q12.1","2q22.3","10p14","11q13.5",
                "12q13.1","15q22.2","17q12"),
-             trait = c("COA","AA","AOA","AA","AA","AOA","AA","COA"))
+             trait = c("COA","AA","AOA","AA",
+                       "AA","AOA","AA","COA"))
 
 # Repeat for each analysis.
 out <- NULL
@@ -20,12 +21,14 @@ for (i in 1:n) {
   region <- analyses[i,"region"]
   trait <- analyses[i,"trait"]
   if (trait == "COA") {
-    gwas <- data.frame(readRDS(paste0("gwas_surv/coa_gwas_",region,".rds")))
-    res  <- readRDS(paste0("result202408/coa/fit.susie.",region,".rds"))
+    gwas <- data.frame(readRDS(paste0("../data/gwas_surv/coa_gwas_",
+                                      region,".rds")))
+    res  <- readRDS(paste0("../result202408/coa/fit.susie.",region,".rds"))
   }
   else if (trait == "AOA") {
-    gwas <- data.frame(readRDS(paste0("gwas_surv/aoa_gwas_",region,".rds")))
-    res  <- readRDS(paste0("result202408/aoa/fit.susie.",region,".rds"))
+    gwas <- data.frame(readRDS(paste0("../data/gwas_surv/aoa_gwas_",
+                                      region,".rds")))
+    res  <- readRDS(paste0("../result202408/aoa/fit.susie.",region,".rds"))
   } else {
     gwas <- data.frame(readRDS(paste0("../data/gwas_surv/all_gwas_",
                                       region,".rds")))

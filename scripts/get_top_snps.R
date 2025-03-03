@@ -1,15 +1,15 @@
 # Used to fill out the "top SNP" column for the table summarizing the
 # fine-mapping regions considered.
 regions <- c("chr1_150600001_155100000",
+             "chr2_102100001_105300000",
+             "chr2_143400001_147900000",
              "chr10_6600001_12200000",
              "chr11_75500001_77400000",
-             "chr15_59000001_63400000",
-             "chr17_33500001_39800000",
-             "chr2_102100001_105300000",
              "chr12_46000001_48700000",
-             "chr2_143400001_147900000")
-analysis.prefer <- c("coa","aa","aa","aa",
-                     "coa","coa","aa","aoa")
+             "chr15_59000001_63400000",
+             "chr17_33500001_39800000")
+analysis.prefer <- c("coa","aa","aoa","aa",
+                     "aa","aoa","aa","coa")
 
 for (i in 1:length(regions)) {
   reg = regions[i]
@@ -37,5 +37,6 @@ for (i in 1:length(regions)) {
   dat <- merge(gwas.surv,gwas.logit,by = "ID")
   top <- which(dat$p.value.spa == min(dat$p.value.spa,na.rm = TRUE))
   print(reg)
-  print(dat[top,])
+  print(analysis.prefer[i])
+  print(dat[top,"ID"])
 }

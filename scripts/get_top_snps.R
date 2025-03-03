@@ -14,18 +14,18 @@ analysis.prefer <- c("coa","aa","aa","aa","coa","aa","aa","aoa","aoa")
 for (i in 1:length(regions)) {
   reg = regions[i]
   if (analysis.prefer[i] == "aa") {
-    path.surv = paste0("gwas_surv/all_gwas_",reg,".rds")
-    path.logit = paste0("gwas_logistic_out/all/gwas_",reg,
+    path.surv = paste0("../data/gwas_surv/all_gwas_",reg,".rds")
+    path.logit = paste0("../data/gwas_logistic_out/all/gwas_",reg,
       ".asthma.glm.logistic")
   }
   if (analysis.prefer[i] == "coa") {
-    path.surv = paste0("gwas_surv/coa_gwas_",reg,".rds")
-    path.logit = paste0("gwas_logistic_out/coa/gwas_",reg,
+    path.surv = paste0("../data/gwas_surv/coa_gwas_",reg,".rds")
+    path.logit = paste0("../data/gwas_logistic_out/coa/gwas_",reg,
       ".asthma_coa.glm.logistic")
   }
   if (analysis.prefer[i] == "aoa") {
-    path.surv = paste0("gwas_surv/aoa_gwas_",reg,".rds")
-    path.logit = paste0("gwas_logistic_out/aoa/gwas_",reg,
+    path.surv = paste0("../data/gwas_surv/aoa_gwas_",reg,".rds")
+    path.logit = paste0("../data/gwas_logistic_out/aoa/gwas_",reg,
       ".asthma_aoa.glm.logistic")
   }
   gwas.surv <- data.frame(readRDS(path.surv))

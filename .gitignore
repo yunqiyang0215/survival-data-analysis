@@ -27,4 +27,5 @@ analysis/*_cache
 analysis/site_libs
 res_susie/
 result202408/
+result202504/
 get_geno202404/geno

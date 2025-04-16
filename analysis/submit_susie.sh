@@ -10,15 +10,6 @@
 #SBATCH --error=/gpfs/data/stephens-lab/uk-biobank-survival/yunqi/survpheno/ukb_asthma_self_report/analysis/submit_jobs.err
 
 
-regions=(
-    "chr6_30500001_32100000"
-)
-
-
-# Loop through each region and submit the job
-for region in "${regions[@]}"; do
-    sbatch susie.sh "$region"
-done
 
 regions=(
     "chr10_6600001_12200000"
@@ -31,4 +22,11 @@ regions=(
     "chr2_143400001_147900000"
     "chr6_30500001_32100000"
 )
+
+
+# Loop through each region and submit the job
+for region in "${regions[@]}"; do
+    sbatch susie.sh "$region"
+done
+
 

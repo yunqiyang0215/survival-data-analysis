@@ -2,14 +2,13 @@
 # summarizing the CoxPH-SuSiE fine-mapping results on the UK Biobank
 # asthma data.
 library(susieR)
-# library(SPACox)
 analyses <-
   data.frame(region = c("chr1_150600001_155100000","chr2_102100001_105300000",
                         "chr2_143400001_147900000","chr10_6600001_12200000",
                         "chr11_75500001_77400000","chr12_46000001_48700000",
                         "chr15_59000001_63400000","chr17_33500001_39800000"),
              name = c("1q21.3","2q12.1","2q22.3","10p14","11q13.5",
-               "12q13.1","15q22.2","17q12"),
+                      "12q13.1","15q22.2","17q12"),
              trait = c("COA","AA","AOA","AA",
                        "AA","AOA","AA","COA"))
 
@@ -23,16 +22,16 @@ for (i in 1:n) {
   if (trait == "COA") {
     gwas <- data.frame(readRDS(paste0("../data/gwas_surv/coa_gwas_",
                                       region,".rds")))
-    res  <- readRDS(paste0("../result202408/coa/fit.susie.",region,".rds"))
+    res  <- readRDS(paste0("../result202504/coa/fit.susie.",region,".rds"))
   }
   else if (trait == "AOA") {
     gwas <- data.frame(readRDS(paste0("../data/gwas_surv/aoa_gwas_",
                                       region,".rds")))
-    res  <- readRDS(paste0("../result202408/aoa/fit.susie.",region,".rds"))
+    res  <- readRDS(paste0("../result202504/aoa/fit.susie.",region,".rds"))
   } else {
     gwas <- data.frame(readRDS(paste0("../data/gwas_surv/all_gwas_",
                                       region,".rds")))
-    res  <- readRDS(paste0("../result202408/all/fit.susie.",region,".rds"))
+    res  <- readRDS(paste0("../result202504/all/fit.susie.",region,".rds"))
   }
   fit <- res[[1]]
   X <- res[[2]]

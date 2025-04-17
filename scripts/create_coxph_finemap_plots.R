@@ -59,7 +59,7 @@ for (analysis in 1:n) {
                      sep = "\t",header = TRUE,stringsAsFactors = FALSE,
                      comment.char = "")
   gwas <- readRDS(sprintf("../output/gwas_surv/%s",analyses[analysis,"gwas_file"]))
-  res  <- readRDS(sprintf("../output/result202408/%s/fit.susie.%s.rds",
+  res  <- readRDS(sprintf("../result202504/%s/fit.susie.%s.rds",
                           tolower(trait),region))
   fit  <- res[[1]]
   X    <- res[[2]]
@@ -72,11 +72,11 @@ for (analysis in 1:n) {
                   
   # Set up the plotting data structure.
   pdat <- data.frame(id    = ids,
-                   label = "",
-                   pos   = pvar$POS,
-                   pval  = gwas[,"p.value.spa"],
-                   CS    = "none",
-                   stringsAsFactors = FALSE)
+                     label = "",
+                     pos   = pvar$POS,
+                     pval  = gwas[,"p.value.spa"],
+                     CS    = "none",
+                     stringsAsFactors = FALSE)
   class(fit) <- c("susie","list")
   pips <- susie_get_pip(fit)
   cs <- susie_get_cs(fit,X)
@@ -110,7 +110,7 @@ for (analysis in 1:n) {
     theme_cowplot(font_size = 12) 
 }
 
-# Save the plots in two PDFs.
+# Save the plots in a PDF.
 ggsave("coxph_finemap_plots.pdf",
        plot_grid(plots[[1]],plots[[2]],plots[[3]],plots[[4]],plots[[5]],
                  plots[[6]],plots[[7]],plots[[8]],plots[[9]],plots[[10]],
